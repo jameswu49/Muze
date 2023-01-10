@@ -13,34 +13,56 @@
 </head>
 
 <body class="background">
-  <div class="overlay"></div>
-  <div class="container">
 
-    <div class="row">
-      <div class="column-full mt-4 flex">
-        <iconify-icon class="headphone" icon="fluent:headphones-sound-wave-20-regular"></iconify-icon>
-        <form class="d-flex" role="search">
-          <input class="search mt-3" type="search" placeholder="Search for song" aria-label="Search">
+  <header>
+    <div class="container-fluid">
+
+      <nav class="navbar pb-0 navbar-expand-lg">
+        <a class="navbar-brand" href="#"><iconify-icon class="headphone" icon="fluent:headphones-sound-wave-20-regular"></iconify-icon></a>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav">
+              <a class="link mt-4" href="#">Hot Tracks</a>
+            </li>
+            <li class="nav">
+              <a class="link mt-4" href="#">Discover</a>
+            </li>
+            <li class="nav">
+              <a class="link mt-4" href="#">My Songs</a>
+            </li>
+          </ul>
+        </div>
+        <form role="search" class="mt-4">
+          <input class="search" type="search" placeholder="Search for Song" aria-label="Search">
+        </form>
+        <button class="navbar-toggler mt-4" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+          aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon navbar-dark"></span>
+        </button>
+      </nav>
+
+
+      <div class="row">
+        <div class="col-1">
+          <p class="logo">Muze</p>
+        </div>
+      </div>
+
+
+
+    </div>
+  </header>
+
+  <main>
+    <div class="main-container">
+      <div class="row">
+        <div class="column-12">
+          <h1>Muze: A New Way To Discover Music</h1>
+          <h5>Come Discover Your Favorite Artist</h5>
+        </div>
       </div>
     </div>
-
-    <div class="row">
-      <div class="column-full flex">
-        <p class="logo">Logo</p>
-      </div>
-    </div>
-
-
-    <header>
-
-
-    </header>
-
-    <main>
-
-
-    </main>
-  </div>
+  </main>
 
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>

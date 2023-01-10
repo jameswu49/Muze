@@ -1,5 +1,5 @@
 .background {
-  background-image: url("../images/desktop.jpg");
+  background-image: url("../images/image.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -8,20 +8,12 @@
   height: 100vh;
 }
 
+.container {
+  margin: 0 auto;
+}
+
 .flex {
   display: flex;
-}
-
-.overlay {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: -2;
-}
-
-.mt-15 {
-  margin-top: 15px;
 }
 
 .headphone {
@@ -32,12 +24,138 @@
 
 .logo {
   color: white;
-  margin-left: 37px;
+  margin-left: 30px;
+  font-size: 20px;
 }
 
 .search {
-  margin-left: 30px;
   background-color: rgb(203, 203, 203);
-  width: 70vw;
   border-radius: 15px;
+  width: 50vw;
+  padding: 8px 3px;
+}
+
+::placeholder {
+  padding-left: 10px;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+}
+
+ul {
+  margin: 0 20px;
+  font-size: 20px;
+}
+
+a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  color: white;
+  transform: translateY(-5px);
+}
+
+h1,
+h5 {
+  color: white;
+  text-align: center;
+}
+
+.main-container {
+  height: 500px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.end {
+  justify-content: flex-end;
+}
+
+@media screen and (min-width: 994px) {
+  .search {
+    width: 40vw;
+    margin-right: 40px;
+  }
+
+  .link {
+    margin: 0 15px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .search {
+    margin-right: 30px;
+  }
+
+  .link {
+    margin: 0 15px;
+  }
+
+  .headphone {
+    margin-left: 25px;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .search {
+    margin-right: 40px;
+    width: 50vw;
+  }
+
+  .link {
+    margin: 0 25px;
+  }
+
+  .headphone {
+    margin-left: 25px;
+  }
+}
+
+@media screen and (min-width: 1640px) {
+  .search {
+    margin-right: 100px;
+  }
+
+  .link {
+    margin: 0 25px;
+  }
+
+  .headphone {
+    margin-left: 25px;
+  }
+}
+
+@media screen and (min-width: 1800px) {
+  .search {
+    margin-right: 100px;
+    width: 55vw;
+  }
+
+  .link {
+    margin: 0 30px;
+  }
+}
+
+@media screen and (min-width: 2037px) {
+  .search {
+    margin-right: 150px;
+    width: 60vw;
+  }
+
+  .link {
+    margin: 0 20px;
+  }
+}
+
+@media screen and (min-width: 2043px) {
+  .search {
+    margin-right: 200px;
+    width: 60vw;
+  }
+
+  .link {
+    margin: 0 30px;
+  }
 }
