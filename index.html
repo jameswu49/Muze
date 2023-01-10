@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AJAX Project</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <link rel="icon" href="images/favicon.ico">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
@@ -11,18 +13,37 @@
 </head>
 
 <body class="background">
-  <div class="overlay">hello</div>
+  <div class="overlay"></div>
+  <div class="container">
 
-  <header>
-    <div class="container">
-      <div class="row"></div>
+    <div class="row">
+      <div class="column-full mt-4 flex">
+        <iconify-icon class="headphone" icon="fluent:headphones-sound-wave-20-regular"></iconify-icon>
+        <form class="d-flex" role="search">
+          <input class="search mt-3" type="search" placeholder="Search for song" aria-label="Search">
+      </div>
     </div>
-  </header>
 
-  <main>
-  </main>
+    <div class="row">
+      <div class="column-full flex">
+        <p class="logo">Logo</p>
+      </div>
+    </div>
+
+
+    <header>
+
+
+    </header>
+
+    <main>
+
+
+    </main>
+  </div>
 
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
 </body>
 </html>

@@ -1,0 +1,13 @@
+.container {
+  margin: auto;
+  height: 10vh;
+  width: 100vw;
+}
+
+.row {
+  display: flex;
+}
+
+.column-third {
+  flex-basis: calc(100% / 3);
+}
