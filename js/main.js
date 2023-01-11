@@ -1,3 +1,5 @@
+/* global data */
+
 var $homePage = document.querySelector('.home-page');
 var $icon = document.querySelector('.headphone');
 var $hotLink = document.querySelector('.hot');
@@ -6,6 +8,7 @@ var $discoverLink = document.querySelector('.discover');
 var $discoverPage = document.querySelector('.discover-page');
 var $mySongsLink = document.querySelector('.songs');
 var $mySongsPage = document.querySelector('.mySongs-Page');
+var $hotContainer = document.querySelector('.hot-container');
 
 var arr = [$hotTracks, $homePage, $discoverPage, $mySongsPage];
 
@@ -76,37 +79,57 @@ $icon.addEventListener('click', switchPage);
 $discoverLink.addEventListener('click', switchPage);
 $mySongsLink.addEventListener('click', switchPage);
 
-// function createTracks() {
-//   var div = document.createElement('div');
-//   div.className = 'row track';
+var hotTracksURL = encodeURIComponent('https://openwhyd.org/hot?format=json');
 
-//   var col4 = document.createElement('div');
-//   col4.className = 'col-4';
-//   div.appendChild(col4);
+function getHotTracks() {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + hotTracksURL);
+  xhr.setRequestHeader('token', 'abc123');
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
 
-//   var image = document.createElement('img');
-//   col4.appendChild(image);
+    var hot = createTracks(xhr.response);
+    $hotContainer.appendChild(hot);
+  });
+  xhr.send();
+}
 
-//   var col8 = document.createElement('div');
-//   col8.className = 'col-8';
-//   div.appendChild(col8);
+getHotTracks();
 
-//   var songName = document.createElement('p');
-//   songName.className = 'song-name';
-//   col8.appendChild(songName);
+function createTracks(entry) {
 
-//   var userName = document.createElement('p');
-//   userName.className = 'username';
-//   col8.appendChild(userName);
+  var div = document.createElement('div');
+  div.className = 'row track';
 
-//   var addbtn = document.createElement('button');
-//   addbtn.className = 'addbtn';
-//   col8.appendChild(addbtn);
+  var col4 = document.createElement('div');
+  col4.className = 'col-4';
+  div.appendChild(col4);
 
-//   var addSpan = document.createElement('span');
-//   addSpan.className = 'add';
-//   col8.appendChild(addSpan);
+  var image = document.createElement('img');
+  image.setAttribute('src', entry.tracks[0].img);
+  col4.appendChild(image);
 
-//   return div;
+  var col8 = document.createElement('div');
+  col8.className = 'col-8';
+  div.appendChild(col8);
 
-// }
+  var songName = document.createElement('p');
+  songName.className = 'song-name';
+  songName.textContent = entry.tracks[0].name;
+  col8.appendChild(songName);
+
+  var userName = document.createElement('p');
+  userName.className = 'username';
+  col8.appendChild(userName);
+
+  var addbtn = document.createElement('button');
+  addbtn.className = 'addbtn';
+  addbtn.innerText = '+';
+  col8.appendChild(addbtn);
+
+  var addSpan = document.createElement('span');
+  addSpan.className = 'add';
+  col8.appendChild(addSpan);
+
+  return div;
+}
