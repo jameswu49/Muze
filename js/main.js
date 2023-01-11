@@ -75,3 +75,38 @@ $hotLink.addEventListener('click', switchPage);
 $icon.addEventListener('click', switchPage);
 $discoverLink.addEventListener('click', switchPage);
 $mySongsLink.addEventListener('click', switchPage);
+
+// function createTracks() {
+//   var div = document.createElement('div');
+//   div.className = 'row track';
+
+//   var col4 = document.createElement('div');
+//   col4.className = 'col-4';
+//   div.appendChild(col4);
+
+//   var image = document.createElement('img');
+//   col4.appendChild(image);
+
+//   var col8 = document.createElement('div');
+//   col8.className = 'col-8';
+//   div.appendChild(col8);
+
+//   var songName = document.createElement('p');
+//   songName.className = 'song-name';
+//   col8.appendChild(songName);
+
+//   var userName = document.createElement('p');
+//   userName.className = 'username';
+//   col8.appendChild(userName);
+
+//   var addbtn = document.createElement('button');
+//   addbtn.className = 'addbtn';
+//   col8.appendChild(addbtn);
+
+//   var addSpan = document.createElement('span');
+//   addSpan.className = 'add';
+//   col8.appendChild(addSpan);
+
+//   return div;
+
+// }
