@@ -22,6 +22,10 @@
   margin-left: 25px;
 }
 
+.menu {
+  color: white;
+}
+
 .logo {
   color: white;
   margin-left: 30px;
@@ -44,6 +48,10 @@
   text-decoration: none;
 }
 
+.navbar-nav {
+  text-align: end;
+}
+
 ul {
   margin: 0 20px;
   font-size: 20px;
@@ -56,10 +64,11 @@ a:hover {
   transform: translateY(-5px);
 }
 
-h1,
-h5 {
+.title,
+.subtext {
   color: white;
   text-align: center;
+  font-weight: bold;
 }
 
 .main-container {
@@ -69,14 +78,14 @@ h5 {
   justify-content: center;
 }
 
-.end {
-  justify-content: flex-end;
+.hidden {
+  display: none;
 }
 
 @media screen and (min-width: 994px) {
   .search {
     width: 40vw;
-    margin-right: 40px;
+    margin-left: 30px;
   }
 
   .link {
@@ -86,15 +95,11 @@ h5 {
 
 @media screen and (min-width: 1200px) {
   .search {
-    margin-right: 30px;
+    margin-left: 40px;
   }
 
   .link {
-    margin: 0 15px;
-  }
-
-  .headphone {
-    margin-left: 25px;
+    margin: 0 25px;
   }
 }
 
@@ -115,22 +120,7 @@ h5 {
 
 @media screen and (min-width: 1640px) {
   .search {
-    margin-right: 100px;
-  }
-
-  .link {
-    margin: 0 25px;
-  }
-
-  .headphone {
-    margin-left: 25px;
-  }
-}
-
-@media screen and (min-width: 1800px) {
-  .search {
-    margin-right: 100px;
-    width: 55vw;
+    margin-left: 50px;
   }
 
   .link {
@@ -138,20 +128,31 @@ h5 {
   }
 }
 
+@media screen and (min-width: 1800px) {
+  .search {
+    margin-right: 80px;
+    width: 55vw;
+  }
+
+  .link {
+    margin: 0 35px;
+  }
+}
+
 @media screen and (min-width: 2037px) {
   .search {
-    margin-right: 150px;
+    margin-left: 80px;
     width: 60vw;
   }
 
   .link {
-    margin: 0 20px;
+    margin: 0 30px;
   }
 }
 
 @media screen and (min-width: 2043px) {
   .search {
-    margin-right: 200px;
+    margin-left: 100px;
     width: 60vw;
   }
 
