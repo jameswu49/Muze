@@ -12,6 +12,10 @@
   margin: 0 auto;
 }
 
+.hot-container {
+  height: 100vh;
+}
+
 .flex {
   display: flex;
 }
@@ -72,21 +76,34 @@ a:hover {
 }
 
 .main-container {
-  height: 500px;
+  height: 200px;
   align-items: center;
   display: flex;
   justify-content: center;
+}
+
+.home-page {
+  height: 350px;
+  display: flex;
+  align-items: flex-end;
 }
 
 .width {
   width: 100vw;
 }
 
+.fixed {
+  position: fixed;
+  left: 12px;
+  overflow-y: auto;
+  height: 100%;
+}
+
 .track {
   border: 1px solid black;
   background-color: rgba(0, 0, 0, 0.5);
   width: 100vw;
-  height: 120px;
+  height: 205px;
   align-items: center;
 }
 
@@ -105,13 +122,12 @@ a:hover {
 
 .song-name,
 .username,
-.addbtn,
 .add {
   color: white;
 }
 
 .song-name {
-  font-size: 20px;
+  font-size: 25px;
   margin-bottom: 15px;
   cursor: pointer;
 }
@@ -134,8 +150,14 @@ a:hover {
 }
 
 img {
-  max-height: 120px;
-  max-width: 120px;
+  height: 150px;
+  width: 150px;
+}
+
+@media screen and (min-width: 781px) {
+  img {
+    margin-left: 80px;
+  }
 }
 
 @media screen and (min-width: 994px) {
@@ -149,6 +171,18 @@ img {
   }
 }
 
+@media screen and (min-width: 1122px) {
+  img {
+    margin-left: 150px;
+    height: 160px;
+    width: 160px;
+  }
+
+  .col-8 {
+    padding-left: 100px;
+  }
+}
+
 @media screen and (min-width: 1200px) {
   .search {
     margin-left: 40px;
@@ -156,6 +190,10 @@ img {
 
   .link {
     margin: 0 25px;
+  }
+
+  .col-4 {
+    justify-content: flex-end;
   }
 }
 
@@ -171,6 +209,14 @@ img {
 
   .headphone {
     margin-left: 25px;
+  }
+
+  img {
+    margin-left: 350px;
+  }
+
+  .col-8 {
+    padding-left: 140px;
   }
 }
 
@@ -214,5 +260,26 @@ img {
 
   .link {
     margin: 0 30px;
+  }
+
+  .col-4 {
+    justify-content: end;
+  }
+
+  .song-name {
+    font-size: 35px;
+  }
+
+  .username {
+    font-size: 20px;
+  }
+
+  .addbtn {
+    width: 23px;
+    height: 23px;
+  }
+
+  .add {
+    font-size: 15px;
   }
 }
