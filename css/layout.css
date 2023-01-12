@@ -1,0 +1,7 @@
+.container {
+  margin: auto;
+}
+
+.row {
+  display: flex;
+}

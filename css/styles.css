@@ -1,0 +1,286 @@
+.background {
+  background-image: url("../images/image.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.container {
+  margin: 0 auto;
+}
+
+.hot-container {
+  height: 100vh;
+}
+
+.flex {
+  display: flex;
+}
+
+.headphone {
+  font-size: 60px;
+  color: white;
+  margin-left: 25px;
+}
+
+.menu {
+  color: white;
+}
+
+.logo {
+  color: white;
+  margin-left: 30px;
+  font-size: 20px;
+}
+
+.search {
+  background-color: rgb(203, 203, 203);
+  border-radius: 15px;
+  width: 50vw;
+  padding: 8px 3px;
+}
+
+::placeholder {
+  padding-left: 10px;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+}
+
+.navbar-nav {
+  text-align: end;
+}
+
+ul {
+  margin: 0 20px;
+  font-size: 20px;
+}
+
+a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  color: white;
+  transform: translateY(-5px);
+}
+
+.title,
+.subtext {
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
+.main-container {
+  height: 200px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.home-page {
+  height: 350px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.width {
+  width: 100vw;
+}
+
+.fixed {
+  position: fixed;
+  left: 12px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.track {
+  border: 1px solid black;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 205px;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.addbtn {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+}
+
+.song-name,
+.username,
+.add {
+  color: white;
+  width: fit-content;
+}
+
+.song-name {
+  font-size: 25px;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.username {
+  font-size: 20px;
+  line-height: 0;
+  padding-bottom: 5px;
+  cursor: pointer;
+}
+
+.add {
+  font-size: 15px;
+  margin-left: 10px;
+}
+
+.col-4 {
+  display: flex;
+  align-items: center;
+}
+
+img {
+  height: 150px;
+  width: 150px;
+}
+
+@media screen and (min-width: 781px) {
+  img {
+    margin-left: 80px;
+  }
+}
+
+@media screen and (min-width: 994px) {
+  .search {
+    width: 40vw;
+    margin-left: 30px;
+  }
+
+  .link {
+    margin: 0 15px;
+  }
+}
+
+@media screen and (min-width: 1122px) {
+  img {
+    margin-left: 150px;
+    height: 160px;
+    width: 160px;
+  }
+
+  .col-8 {
+    padding-left: 100px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .search {
+    margin-left: 40px;
+  }
+
+  .link {
+    margin: 0 25px;
+  }
+
+  .col-4 {
+    justify-content: flex-end;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .search {
+    margin-right: 40px;
+    width: 50vw;
+  }
+
+  .link {
+    margin: 0 25px;
+  }
+
+  .headphone {
+    margin-left: 25px;
+  }
+
+  img {
+    margin-left: 350px;
+  }
+
+  .col-8 {
+    padding-left: 140px;
+  }
+}
+
+@media screen and (min-width: 1640px) {
+  .search {
+    margin-left: 50px;
+  }
+
+  .link {
+    margin: 0 30px;
+  }
+}
+
+@media screen and (min-width: 1800px) {
+  .search {
+    margin-right: 80px;
+    width: 55vw;
+  }
+
+  .link {
+    margin: 0 35px;
+  }
+}
+
+@media screen and (min-width: 2037px) {
+  .search {
+    margin-left: 80px;
+    width: 60vw;
+  }
+
+  .link {
+    margin: 0 30px;
+  }
+}
+
+@media screen and (min-width: 2043px) {
+  .search {
+    margin-left: 100px;
+    width: 60vw;
+  }
+
+  .link {
+    margin: 0 30px;
+  }
+
+  .col-4 {
+    justify-content: end;
+  }
+
+  .song-name {
+    font-size: 35px;
+  }
+
+  .username {
+    font-size: 20px;
+  }
+
+  .addbtn {
+    width: 23px;
+    height: 23px;
+  }
+
+  .add {
+    font-size: 15px;
+  }
+}
