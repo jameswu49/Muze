@@ -124,6 +124,7 @@ a:hover {
 .username,
 .add {
   color: white;
+  width: fit-content;
 }
 
 .song-name {
