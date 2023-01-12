@@ -87,16 +87,17 @@ function getHotTracks() {
   xhr.setRequestHeader('token', 'abc123');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-
-    var hot = createTracks(xhr.response);
-    $hotContainer.appendChild(hot);
+    for (var i = 0; i < xhr.response.tracks.length; i++) {
+      var hot = createTracks(xhr.response.tracks[i]);
+      $hotContainer.appendChild(hot);
+    }
   });
   xhr.send();
 }
 
 getHotTracks();
 
-function createTracks(entry) {
+function createTracks(xhr) {
 
   var div = document.createElement('div');
   div.className = 'row track';
@@ -106,7 +107,7 @@ function createTracks(entry) {
   div.appendChild(col4);
 
   var image = document.createElement('img');
-  image.setAttribute('src', entry.tracks[0].img);
+  image.setAttribute('src', xhr.img);
   col4.appendChild(image);
 
   var col8 = document.createElement('div');
@@ -115,11 +116,18 @@ function createTracks(entry) {
 
   var songName = document.createElement('p');
   songName.className = 'song-name';
-  songName.textContent = entry.tracks[0].name;
+  songName.textContent = xhr.name;
+  songName.addEventListener('click', function () {
+    window.open('https://openwhyd.org' + xhr.eId);
+  });
   col8.appendChild(songName);
 
   var userName = document.createElement('p');
   userName.className = 'username';
+  userName.textContent = xhr.uNm;
+  userName.addEventListener('click', function () {
+    window.open('https://openwhyd.org/u/' + xhr.uId);
+  });
   col8.appendChild(userName);
 
   var addbtn = document.createElement('button');
@@ -129,6 +137,7 @@ function createTracks(entry) {
 
   var addSpan = document.createElement('span');
   addSpan.className = 'add';
+  addSpan.innerText = 'Add';
   col8.appendChild(addSpan);
 
   return div;
