@@ -163,7 +163,7 @@ function createPlaylist(xhr) {
 
   var playlistImg = document.createElement('img');
   playlistImg.className = 'userplaylist-image';
-  playlistImg.setAttribute('src', '../images/soundwaves.jpg');
+  playlistImg.setAttribute('src', 'https://openwhyd.org' + xhr.img);
   playlistImgCol.appendChild(playlistImg);
 
   var playlistTextCol = document.createElement('div');
@@ -174,6 +174,9 @@ function createPlaylist(xhr) {
   playlistText.innerText = xhr.name;
   playlistText.className = 'user-playlist text';
   playlistTextCol.appendChild(playlistText);
+  playlistText.addEventListener('click', function () {
+    window.open('https://openwhyd.org' + xhr.url);
+  });
 
   var playlistNum = document.createElement('p');
   playlistNum.className = 'track-num';
@@ -244,7 +247,7 @@ function showJacquesPlaylist() {
   getJacquesPlaylist();
 }
 
-var jacquesPlaylistURL = encodeURIComponent('https://openwhyd.org/u/5438c677e04b7b4fca7fb4f3?format=json');
+var jacquesPlaylistURL = encodeURIComponent('https://openwhyd.org/u/5438c677e04b7b4fca7fb4f3/playlists?format=json');
 
 function getJacquesPlaylist() {
   var xhr = new XMLHttpRequest();
