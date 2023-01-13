@@ -122,7 +122,8 @@ a:hover {
 
 .song-name,
 .username,
-.add {
+.add,
+.playlist {
   color: white;
   width: fit-content;
 }
@@ -148,6 +149,7 @@ a:hover {
 .col-4 {
   display: flex;
   align-items: center;
+  justify-content: end;
 }
 
 .discover-user {
@@ -162,9 +164,60 @@ a:hover {
 .discover-image {
   height: 120px;
   width: 120px;
-  margin-left: 55px;
   border-radius: 50%;
 }
+
+/*
+user's page css */
+
+.icon-div {
+  margin-left: 5%;
+}
+
+.fa-headphones {
+  font-size: 100px;
+  color: white;
+  justify-content: end;
+}
+
+.playlist-col {
+  padding-top: 25px;
+}
+
+.fa-users {
+  font-size: 85px;
+  color: white;
+  justify-content: end;
+}
+
+.text {
+  font-size: 35px;
+  cursor: pointer;
+  padding-left: 2%;
+  color: white;
+}
+
+.fa-heart {
+  font-size: 100px;
+  color: white;
+  justify-content: end;
+}
+
+/* users playlist page */
+
+.userplaylist-image {
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+}
+
+.track-num {
+  color: white;
+  margin-left: 2%;
+  font-size: 18px;
+}
+
+/* media queries */
 
 img {
   height: 150px;
@@ -198,6 +251,10 @@ img {
   .col-8 {
     padding-left: 100px;
   }
+
+  /* .discover-image {
+    margin-left: 295px;
+  } */
 }
 
 @media screen and (min-width: 1200px) {
@@ -207,10 +264,6 @@ img {
 
   .link {
     margin: 0 25px;
-  }
-
-  .col-4 {
-    justify-content: flex-end;
   }
 }
 
@@ -277,10 +330,6 @@ img {
 
   .link {
     margin: 0 30px;
-  }
-
-  .col-4 {
-    justify-content: end;
   }
 
   .song-name {
