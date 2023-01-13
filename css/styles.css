@@ -152,6 +152,14 @@ a:hover {
   justify-content: end;
 }
 
+/* discover page */
+
+.search-text {
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
 .discover-user {
   font-size: 30px;
   margin-bottom: 15px;

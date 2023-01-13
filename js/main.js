@@ -9,16 +9,15 @@ var $discoverPage = document.querySelector('.discover-page');
 var $mySongsLink = document.querySelector('.songs');
 var $mySongsPage = document.querySelector('.mySongs-Page');
 var $hotContainer = document.querySelector('.hot-container');
+var $discoverContainer = document.querySelector('.discover-container');
+var $searchText = document.querySelector('.search-text');
 var $userTitle = document.querySelector('.user-title');
 var $userPage = document.querySelector('.user-Page');
-var $gerard = document.querySelector('.gerard');
-var $stefanos = document.querySelector('.stefanos');
-var $jacques = document.querySelector('.jacques');
-var $ludimix = document.querySelector('.ludimix');
 var $playlistPage = document.querySelector('.playlist-page');
-var $playlistContainer = document.querySelector('.playlist-container');
-var $userPlaylist = document.querySelector('.playlist-p');
-var $playlistTitle = document.querySelector('.playlist-title');
+// var $playlistContainer = document.querySelector('.playlist-container');
+// var $userPlaylist = document.querySelector('.playlist-p');
+// var $playlistTitle = document.querySelector('.playlist-title');
+var $search = document.querySelector('.search');
 
 var arr = [$hotTracks, $homePage, $discoverPage, $mySongsPage, $userPage, $playlistPage];
 
@@ -58,7 +57,6 @@ function viewSwap(entryType) {
     addHidden(arr);
     removeHidden(arr);
   }
-
 }
 
 function switchPage() {
@@ -153,7 +151,7 @@ function createTracks(xhr) {
   return div;
 }
 
-function createPlaylist(xhr) {
+function createUser(xhr) {
   var div = document.createElement('div');
   div.className = 'playlist-row row track';
 
@@ -163,7 +161,7 @@ function createPlaylist(xhr) {
 
   var playlistImg = document.createElement('img');
   playlistImg.className = 'userplaylist-image';
-  playlistImg.setAttribute('src', 'https://openwhyd.org' + xhr.img);
+  playlistImg.setAttribute('src', 'https://openwhyd.org/img/u/' + xhr.lastTrack.uId);
   playlistImgCol.appendChild(playlistImg);
 
   var playlistTextCol = document.createElement('div');
@@ -175,7 +173,9 @@ function createPlaylist(xhr) {
   playlistText.className = 'user-playlist text';
   playlistTextCol.appendChild(playlistText);
   playlistText.addEventListener('click', function () {
-    window.open('https://openwhyd.org' + xhr.url);
+    $userPage.classList.remove('hidden');
+    $discoverPage.classList.add('hidden');
+    $userTitle.innerText = playlistText.innerText + "'s Page";
   });
 
   var playlistNum = document.createElement('p');
@@ -186,136 +186,27 @@ function createPlaylist(xhr) {
   return div;
 }
 
-function showUsersPage(name) {
-  addHidden(arr);
-  $userPage.classList.remove('hidden');
-  $userTitle.innerText = name + ' Page';
-}
-
-function showGerardPlayList() {
-  addHidden(arr);
-  $playlistPage.classList.remove('hidden');
-  $playlistTitle.innerText = "Gérard's Playlist";
-  gerardPlaylist();
-}
-
-var gerardPlaylistURL = encodeURIComponent('https://openwhyd.org/u/5361647f71eaec19b57037e4/playlists?format=json');
-
-function gerardPlaylist() {
+function getUser() {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + gerardPlaylistURL);
+  var getUserPlaylistURL = encodeURIComponent('https://openwhyd.org/search?q=' + $search.value + '&format=json');
+  xhr.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + getUserPlaylistURL);
   xhr.setRequestHeader('token', 'abc123');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    $playlistContainer.replaceChildren('');
-    for (var i = 0; i < xhr.response.length; i++) {
-      var playlist = createPlaylist(xhr.response[i]);
-      $playlistContainer.appendChild(playlist);
+    $discoverContainer.replaceChildren('');
+    for (var i = 0; i < xhr.response.results.users.length; i++) {
+      var playlist = createUser(xhr.response.results.users[i]);
+      $discoverContainer.appendChild(playlist);
     }
   });
   xhr.send();
 }
 
-function showStefanosPlayList() {
-  addHidden(arr);
-  $playlistPage.classList.remove('hidden');
-  $playlistTitle.innerText = "Stefanos' Playlist";
-  getStefanosPlaylist();
-}
-
-var stefanosPlaylistURL = encodeURIComponent('https://openwhyd.org/u/544c39c3e04b7b4fca803438/playlists?format=json');
-
-function getStefanosPlaylist() {
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + stefanosPlaylistURL);
-  xhr.setRequestHeader('token', 'abc123');
-  xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
-    $playlistContainer.replaceChildren('');
-    for (var i = 0; i < xhr.response.length; i++) {
-      var playlist = createPlaylist(xhr.response[i]);
-      $playlistContainer.appendChild(playlist);
-    }
-  });
-  xhr.send();
-}
-
-function showJacquesPlaylist() {
-  addHidden(arr);
-  $playlistPage.classList.remove('hidden');
-  $playlistTitle.innerText = "jacques' Playlist";
-  getJacquesPlaylist();
-}
-
-var jacquesPlaylistURL = encodeURIComponent('https://openwhyd.org/u/5438c677e04b7b4fca7fb4f3/playlists?format=json');
-
-function getJacquesPlaylist() {
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + jacquesPlaylistURL);
-  xhr.setRequestHeader('token', 'abc123');
-  xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
-    $playlistContainer.replaceChildren('');
-    for (var i = 0; i < xhr.response.length; i++) {
-      var playlist = createPlaylist(xhr.response[i]);
-      $playlistContainer.appendChild(playlist);
-    }
-  });
-  xhr.send();
-}
-
-function showLudimixPlaylist() {
-  addHidden(arr);
-  $playlistPage.classList.remove('hidden');
-  $playlistTitle.innerText = "Ludimix's Playlist";
-  getLudimixPlaylist();
-}
-
-var ludimixPlaylistURL = encodeURIComponent('https://openwhyd.org/ludimix/playlists?format=json');
-
-function getLudimixPlaylist() {
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + ludimixPlaylistURL);
-  xhr.setRequestHeader('token', 'abc123');
-  xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
-    $playlistContainer.replaceChildren('');
-    for (var i = 0; i < xhr.response.length; i++) {
-      var playlist = createPlaylist(xhr.response[i]);
-      $playlistContainer.appendChild(playlist);
-    }
-  });
-  xhr.send();
-}
-
-$gerard.addEventListener('click', function () {
-  data.view = 'gerards-page';
-  showUsersPage("Gérard's");
-});
-
-$stefanos.addEventListener('click', function () {
-  data.view = 'stefanos-page';
-  showUsersPage("Stefanos'");
-});
-
-$jacques.addEventListener('click', function () {
-  data.view = 'jacques-page';
-  showUsersPage('jacques');
-});
-
-$ludimix.addEventListener('click', function () {
-  data.view = 'ludimix-page';
-  showUsersPage("Ludimix's");
-});
-
-$userPlaylist.addEventListener('click', function () {
-  if (data.view === 'gerards-page') {
-    showGerardPlayList();
-  } else if (data.view === 'stefanos-page') {
-    showStefanosPlayList();
-  } else if (data.view === 'jacques-page') {
-    showJacquesPlaylist();
-  } else if (data.view === 'ludimix-page') {
-    showLudimixPlaylist();
+$search.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') {
+    $searchText.className = 'hidden';
+    data.view = 'discover-page';
+    viewSwap('discover-page');
+    getUser();
   }
 });
