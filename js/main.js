@@ -14,10 +14,11 @@ var $searchText = document.querySelector('.search-text');
 var $userTitle = document.querySelector('.user-title');
 var $userPage = document.querySelector('.user-Page');
 var $playlistPage = document.querySelector('.playlist-page');
-// var $playlistContainer = document.querySelector('.playlist-container');
-// var $userPlaylist = document.querySelector('.playlist-p');
-// var $playlistTitle = document.querySelector('.playlist-title');
+var $playlistContainer = document.querySelector('.playlist-container');
+var $userPlaylist = document.querySelector('.playlist-p');
+var $playlistTitle = document.querySelector('.playlist-title');
 var $search = document.querySelector('.search');
+var $form = document.querySelector('form');
 
 var arr = [$hotTracks, $homePage, $discoverPage, $mySongsPage, $userPage, $playlistPage];
 
@@ -81,6 +82,16 @@ function switchPage() {
   }
 
 }
+
+$search.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') {
+    $searchText.className = 'hidden';
+    data.view = 'discover-page';
+    viewSwap('discover-page');
+    getUser();
+    $form.reset();
+  }
+});
 
 $hotLink.addEventListener('click', switchPage);
 $icon.addEventListener('click', switchPage);
@@ -151,7 +162,70 @@ function createTracks(xhr) {
   return div;
 }
 
-function createUser(xhr) {
+function createUser(userData) {
+  var div = document.createElement('div');
+  div.className = 'user-row row track';
+
+  var userImgCol = document.createElement('div');
+  userImgCol.className = 'col-5 d-flex justify-content-end';
+  div.appendChild(userImgCol);
+
+  var userImg = document.createElement('img');
+  userImg.className = 'user-image';
+  userImg.setAttribute('src', 'https://openwhyd.org/img/u/' + userData.lastTrack.uId);
+  userImgCol.appendChild(userImg);
+
+  var userTextCol = document.createElement('div');
+  userTextCol.className = 'col-5 user-text-col';
+  div.appendChild(userTextCol);
+
+  var userText = document.createElement('p');
+  userText.innerText = userData.name;
+  userText.setAttribute('userId', userData.lastTrack.uId);
+  userText.className = 'user-text';
+  userTextCol.appendChild(userText);
+  userText.addEventListener('click', function () {
+    $userPage.classList.remove('hidden');
+    $discoverPage.classList.add('hidden');
+    $userTitle.innerText = userText.innerText + "'s Page";
+    data.userID.unshift(event.target.getAttribute('userId'));
+  });
+  return div;
+}
+
+function getUser() {
+  var userData = new XMLHttpRequest();
+  var getUserPlaylistURL = encodeURIComponent('https://openwhyd.org/search?q=' + $search.value + '&format=json');
+  userData.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + getUserPlaylistURL);
+  userData.setRequestHeader('token', 'abc123');
+  userData.responseType = 'json';
+  userData.addEventListener('load', function () {
+    $discoverContainer.replaceChildren('');
+    for (var i = 0; i < userData.response.results.users.length; i++) {
+      var users = createUser(userData.response.results.users[i]);
+      $discoverContainer.appendChild(users);
+    }
+  });
+  userData.send();
+}
+
+function getUserPlaylist() {
+  var userPlaylist = new XMLHttpRequest();
+  var getUserPlaylistURL = encodeURIComponent('https://openwhyd.org/u/' + data.userID + '/playlists?format=json');
+  userPlaylist.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + getUserPlaylistURL);
+  userPlaylist.setRequestHeader('token', 'abc123');
+  userPlaylist.responseType = 'json';
+  userPlaylist.addEventListener('load', function () {
+    // console.log(userPlaylist.response);
+    for (var i = 0; i < userPlaylist.response.length; i++) {
+      var playlist = createPlaylist(userPlaylist.response[i]);
+      $playlistContainer.appendChild(playlist);
+    }
+  });
+  userPlaylist.send();
+}
+
+function createPlaylist(userPlaylist) {
   var div = document.createElement('div');
   div.className = 'playlist-row row track';
 
@@ -161,7 +235,7 @@ function createUser(xhr) {
 
   var playlistImg = document.createElement('img');
   playlistImg.className = 'userplaylist-image';
-  playlistImg.setAttribute('src', 'https://openwhyd.org/img/u/' + xhr.lastTrack.uId);
+  playlistImg.setAttribute('src', 'https://openwhyd.org' + userPlaylist.img);
   playlistImgCol.appendChild(playlistImg);
 
   var playlistTextCol = document.createElement('div');
@@ -169,8 +243,8 @@ function createUser(xhr) {
   div.appendChild(playlistTextCol);
 
   var playlistText = document.createElement('p');
-  playlistText.innerText = xhr.name;
   playlistText.className = 'user-playlist text';
+  playlistText.innerText = userPlaylist.name;
   playlistTextCol.appendChild(playlistText);
   playlistText.addEventListener('click', function () {
     $userPage.classList.remove('hidden');
@@ -178,35 +252,12 @@ function createUser(xhr) {
     $userTitle.innerText = playlistText.innerText + "'s Page";
   });
 
-  var playlistNum = document.createElement('p');
-  playlistNum.className = 'track-num';
-  playlistNum.innerText = 'Number of Tracks: ' + xhr.nbTracks;
-  playlistTextCol.appendChild(playlistNum);
-
   return div;
 }
 
-function getUser() {
-  var xhr = new XMLHttpRequest();
-  var getUserPlaylistURL = encodeURIComponent('https://openwhyd.org/search?q=' + $search.value + '&format=json');
-  xhr.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + getUserPlaylistURL);
-  xhr.setRequestHeader('token', 'abc123');
-  xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
-    $discoverContainer.replaceChildren('');
-    for (var i = 0; i < xhr.response.results.users.length; i++) {
-      var playlist = createUser(xhr.response.results.users[i]);
-      $discoverContainer.appendChild(playlist);
-    }
-  });
-  xhr.send();
-}
-
-$search.addEventListener('keydown', function (e) {
-  if (e.key === 'Enter') {
-    $searchText.className = 'hidden';
-    data.view = 'discover-page';
-    viewSwap('discover-page');
-    getUser();
-  }
+$userPlaylist.addEventListener('click', function () {
+  $playlistPage.classList.remove('hidden');
+  $userPage.classList.add('hidden');
+  $playlistTitle.innerText = $userTitle.innerText + "'s Playlist";
+  getUserPlaylist();
 });

@@ -213,10 +213,19 @@ user's page css */
 
 /* users playlist page */
 
-.userplaylist-image {
+.user-image {
   height: 120px;
   width: 120px;
   border-radius: 50%;
+}
+
+.user-text {
+  font-size: 30px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  color: white;
+  width: fit-content;
+  margin-left: 10px;
 }
 
 .track-num {
