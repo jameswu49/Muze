@@ -154,10 +154,15 @@ a:hover {
 
 /* discover page */
 
+.discover-title {
+  margin-top: 4%;
+}
+
 .search-text {
   color: white;
   text-align: center;
   font-weight: bold;
+  margin-top: 2%;
 }
 
 .discover-user {
@@ -232,6 +237,13 @@ user's page css */
   color: white;
   margin-left: 2%;
   font-size: 18px;
+}
+
+.none {
+  color: white;
+  text-align: center;
+  margin-bottom: 22%;
+  padding-left: 5px;
 }
 
 /* media queries */

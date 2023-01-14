@@ -2,6 +2,9 @@
 
 var $homePage = document.querySelector('.home-page');
 var $icon = document.querySelector('.headphone');
+var $navbarButton = document.querySelector('.navbar-toggler');
+var $navbarDiv = document.querySelector('.navbar-collapse');
+var $navUl = document.querySelector('ul');
 var $hotLink = document.querySelector('.hot');
 var $hotTracks = document.querySelector('.hot-tracks');
 var $discoverLink = document.querySelector('.discover');
@@ -98,25 +101,32 @@ $icon.addEventListener('click', switchPage);
 $discoverLink.addEventListener('click', switchPage);
 $mySongsLink.addEventListener('click', switchPage);
 
+$navUl.addEventListener('click', function collapseNavBar(e) {
+  if (e.target && e.target.matches('.link')) {
+    $navbarButton.className = 'navbar-toggler collapsed';
+    $navbarDiv.className = 'navbar-collapse collapse';
+  }
+});
+
 var hotTracksURL = encodeURIComponent('https://openwhyd.org/hot?format=json');
 
 function getHotTracks() {
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + hotTracksURL);
-  xhr.setRequestHeader('token', 'abc123');
-  xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
-    for (var i = 0; i < xhr.response.tracks.length; i++) {
-      var hot = createTracks(xhr.response.tracks[i]);
+  var hotTracks = new XMLHttpRequest();
+  hotTracks.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + hotTracksURL);
+  hotTracks.setRequestHeader('token', 'abc123');
+  hotTracks.responseType = 'json';
+  hotTracks.addEventListener('load', function () {
+    for (var i = 0; i < hotTracks.response.tracks.length; i++) {
+      var hot = createTracks(hotTracks.response.tracks[i]);
       $hotContainer.appendChild(hot);
     }
   });
-  xhr.send();
+  hotTracks.send();
 }
 
 getHotTracks();
 
-function createTracks(xhr) {
+function createTracks(hotTracks) {
 
   var div = document.createElement('div');
   div.className = 'row track';
@@ -126,7 +136,7 @@ function createTracks(xhr) {
   div.appendChild(col4);
 
   var image = document.createElement('img');
-  image.setAttribute('src', xhr.img);
+  image.setAttribute('src', hotTracks.img);
   col4.appendChild(image);
 
   var col8 = document.createElement('div');
@@ -135,17 +145,17 @@ function createTracks(xhr) {
 
   var songName = document.createElement('p');
   songName.className = 'song-name';
-  songName.textContent = xhr.name;
+  songName.textContent = hotTracks.name;
   songName.addEventListener('click', function () {
-    window.open('https://openwhyd.org' + xhr.eId);
+    window.open('https://openwhyd.org' + hotTracks.eId);
   });
   col8.appendChild(songName);
 
   var userName = document.createElement('p');
   userName.className = 'username';
-  userName.textContent = xhr.uNm;
+  userName.textContent = hotTracks.uNm;
   userName.addEventListener('click', function () {
-    window.open('https://openwhyd.org/u/' + xhr.uId);
+    window.open('https://openwhyd.org/u/' + hotTracks.uId);
   });
   col8.appendChild(userName);
 
@@ -201,6 +211,12 @@ function getUser() {
   userData.responseType = 'json';
   userData.addEventListener('load', function () {
     $discoverContainer.replaceChildren('');
+    if (userData.response.results.users.length === 0) {
+      var h2 = document.createElement('h2');
+      h2.className = 'none';
+      h2.innerText = 'No Users Found';
+      $discoverContainer.appendChild(h2);
+    }
     for (var i = 0; i < userData.response.results.users.length; i++) {
       var users = createUser(userData.response.results.users[i]);
       $discoverContainer.appendChild(users);
@@ -211,12 +227,18 @@ function getUser() {
 
 function getUserPlaylist() {
   var userPlaylist = new XMLHttpRequest();
-  var getUserPlaylistURL = encodeURIComponent('https://openwhyd.org/u/' + data.userID + '/playlists?format=json');
+  var getUserPlaylistURL = encodeURIComponent('https://openwhyd.org/u/' + data.userID[0] + '/playlists?format=json');
   userPlaylist.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + getUserPlaylistURL);
   userPlaylist.setRequestHeader('token', 'abc123');
   userPlaylist.responseType = 'json';
   userPlaylist.addEventListener('load', function () {
-    // console.log(userPlaylist.response);
+    $playlistContainer.replaceChildren('');
+    if (userPlaylist.response.length === 0) {
+      var h2 = document.createElement('h2');
+      h2.className = 'none';
+      h2.innerText = 'No Playlists Available';
+      $playlistContainer.appendChild(h2);
+    }
     for (var i = 0; i < userPlaylist.response.length; i++) {
       var playlist = createPlaylist(userPlaylist.response[i]);
       $playlistContainer.appendChild(playlist);
@@ -247,10 +269,13 @@ function createPlaylist(userPlaylist) {
   playlistText.innerText = userPlaylist.name;
   playlistTextCol.appendChild(playlistText);
   playlistText.addEventListener('click', function () {
-    $userPage.classList.remove('hidden');
-    $discoverPage.classList.add('hidden');
-    $userTitle.innerText = playlistText.innerText + "'s Page";
+    window.open('https://openwhyd.org' + userPlaylist.url);
   });
+
+  var trackNum = document.createElement('p');
+  trackNum.className = 'track-num';
+  trackNum.innerText = 'Number of Tracks: ' + userPlaylist.nbTracks;
+  playlistTextCol.appendChild(trackNum);
 
   return div;
 }
