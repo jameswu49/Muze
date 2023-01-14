@@ -218,6 +218,7 @@ user's page css */
 
 /* users playlist page */
 
+.user-image,
 .userplaylist-image {
   height: 120px;
   width: 120px;
