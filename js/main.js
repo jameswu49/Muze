@@ -22,8 +22,12 @@ var $userPlaylist = document.querySelector('.playlist-p');
 var $playlistTitle = document.querySelector('.playlist-title');
 var $search = document.querySelector('.search');
 var $form = document.querySelector('form');
+var $followingTitle = document.querySelector('.following-title');
+var $followingContainer = document.querySelector('.following-container');
+var $followingPage = document.querySelector('.following-page');
+var $userFollowing = document.querySelector('.following-p');
 
-var arr = [$hotTracks, $homePage, $discoverPage, $mySongsPage, $userPage, $playlistPage];
+var arr = [$hotTracks, $homePage, $discoverPage, $mySongsPage, $userPage, $playlistPage, $followingPage];
 
 function addHidden(arr) {
   for (var i = 0; i < arr.length; i++) {
@@ -286,3 +290,60 @@ $userPlaylist.addEventListener('click', function () {
   $playlistTitle.innerText = $userTitle.innerText + "'s Playlist";
   getUserPlaylist();
 });
+
+$userFollowing.addEventListener('click', function () {
+  $followingPage.classList.remove('hidden');
+  $userPage.classList.add('hidden');
+  $followingTitle.innerText = 'Following';
+  getFollowingList();
+});
+
+function createFollowing(userFollowing) {
+  var div = document.createElement('div');
+  div.className = 'following-row row track';
+
+  var followingImgCol = document.createElement('div');
+  followingImgCol.className = 'col-5 d-flex justify-content-end';
+  div.appendChild(followingImgCol);
+
+  var userImg = document.createElement('img');
+  userImg.className = 'userplaylist-image';
+  userImg.setAttribute('src', 'https://openwhyd.org/img/u/' + userFollowing.uId);
+  followingImgCol.appendChild(userImg);
+
+  var followingTextCol = document.createElement('div');
+  followingTextCol.className = 'col-5 user-playlist-col';
+  div.appendChild(followingTextCol);
+
+  var followingName = document.createElement('p');
+  followingName.className = 'user-playlist text';
+  followingName.innerText = userFollowing.uNm;
+  followingTextCol.appendChild(followingName);
+  followingName.addEventListener('click', function () {
+    window.open('https://openwhyd.org/u/' + userFollowing.uId);
+  });
+
+  return div;
+}
+
+function getFollowingList() {
+  var followingList = new XMLHttpRequest();
+  var followingListURL = encodeURIComponent('https://openwhyd.org/api/follow/fetchFollowers/' + data.userID[0]);
+  followingList.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + followingListURL);
+  followingList.setRequestHeader('token', 'abc123');
+  followingList.responseType = 'json';
+  followingList.addEventListener('load', function () {
+    $followingContainer.replaceChildren('');
+    if (followingList.response.length === 0) {
+      var h2 = document.createElement('h2');
+      h2.className = 'none';
+      h2.innerText = 'Currently Not Following Anyone';
+      $followingContainer.appendChild(h2);
+    }
+    for (var i = 0; i < followingList.response.length; i++) {
+      var following = createFollowing(followingList.response[i]);
+      $followingContainer.appendChild(following);
+    }
+  });
+  followingList.send();
+}
