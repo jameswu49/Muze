@@ -247,16 +247,27 @@ user's page css */
   padding-left: 5px;
 }
 
-/* media queries */
-
 img {
   height: 150px;
   width: 150px;
+  border-radius: 50%;
+}
+
+/* media queries */
+
+@media screen and (min-width: 500px) {
+  .text {
+    font-size: 20px;
+  }
 }
 
 @media screen and (min-width: 781px) {
   img {
     margin-left: 80px;
+  }
+
+  .text {
+    font-size: 25px;
   }
 }
 
@@ -281,10 +292,6 @@ img {
   .col-8 {
     padding-left: 100px;
   }
-
-  /* .discover-image {
-    margin-left: 295px;
-  } */
 }
 
 @media screen and (min-width: 1200px) {
@@ -294,6 +301,10 @@ img {
 
   .link {
     margin: 0 25px;
+  }
+
+  .text {
+    font-size: 30px;
   }
 }
 
@@ -317,6 +328,10 @@ img {
 
   .col-8 {
     padding-left: 140px;
+  }
+
+  .text {
+    font-size: 35px;
   }
 }
 

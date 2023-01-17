@@ -26,8 +26,12 @@ var $followingTitle = document.querySelector('.following-title');
 var $followingContainer = document.querySelector('.following-container');
 var $followingPage = document.querySelector('.following-page');
 var $userFollowing = document.querySelector('.following-p');
+var $userLikedSongs = document.querySelector('.liked-p');
+var $likedSongsPage = document.querySelector('.likedSongs-page');
+var $likedSongsTitle = document.querySelector('.likedSongs-title');
+var $likedSongsContainer = document.querySelector('.likedSongs-container');
 
-var arr = [$hotTracks, $homePage, $discoverPage, $mySongsPage, $userPage, $playlistPage, $followingPage];
+var arr = [$hotTracks, $homePage, $discoverPage, $mySongsPage, $userPage, $playlistPage, $followingPage, $likedSongsPage];
 
 function addHidden(arr) {
   for (var i = 0; i < arr.length; i++) {
@@ -346,4 +350,61 @@ function getFollowingList() {
     }
   });
   followingList.send();
+}
+
+$userLikedSongs.addEventListener('click', function () {
+  $likedSongsPage.classList.remove('hidden');
+  $userPage.classList.add('hidden');
+  $likedSongsTitle.innerText = 'Liked Songs';
+  getLikedSongs();
+});
+
+function createLikedSongs(likedSongs) {
+  var div = document.createElement('div');
+  div.className = 'likedSongs-row row track';
+
+  var likedSongsImgCol = document.createElement('div');
+  likedSongsImgCol.className = 'col-5 d-flex justify-content-end';
+  div.appendChild(likedSongsImgCol);
+
+  var likedSongsImg = document.createElement('img');
+  likedSongsImg.className = 'userplaylist-image';
+  likedSongsImg.setAttribute('src', likedSongs.img);
+  likedSongsImgCol.appendChild(likedSongsImg);
+
+  var likedSongsTextCol = document.createElement('div');
+  likedSongsTextCol.className = 'col-5 user-playlist-col';
+  div.appendChild(likedSongsTextCol);
+
+  var likedSongsName = document.createElement('p');
+  likedSongsName.className = 'user-playlist text';
+  likedSongsName.innerText = likedSongs.name;
+  likedSongsTextCol.appendChild(likedSongsName);
+  likedSongsName.addEventListener('click', function () {
+    window.open('https://openwhyd.org' + likedSongs.eId);
+  });
+
+  return div;
+}
+
+function getLikedSongs() {
+  var likedSongsList = new XMLHttpRequest();
+  var likedSongsListURL = encodeURIComponent('https://openwhyd.org/u/' + data.userID[0] + '/likes?format=json');
+  likedSongsList.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + likedSongsListURL);
+  likedSongsList.setRequestHeader('token', 'abc123');
+  likedSongsList.responseType = 'json';
+  likedSongsList.addEventListener('load', function () {
+    $likedSongsContainer.replaceChildren('');
+    if (likedSongsList.response.length === 0) {
+      var h2 = document.createElement('h2');
+      h2.className = 'none';
+      h2.innerText = 'No Songs Available';
+      $likedSongsContainer.appendChild(h2);
+    }
+    for (var i = 0; i < likedSongsList.response.length; i++) {
+      var likedSongs = createLikedSongs(likedSongsList.response[i]);
+      $likedSongsContainer.appendChild(likedSongs);
+    }
+  });
+  likedSongsList.send();
 }
