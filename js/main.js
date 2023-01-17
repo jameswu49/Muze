@@ -1,5 +1,3 @@
-/* global data */
-
 var $homePage = document.querySelector('.home-page');
 var $icon = document.querySelector('.headphone');
 var $navbarButton = document.querySelector('.navbar-toggler');
@@ -131,9 +129,12 @@ $userSearch.addEventListener('keydown', function (e) {
   }
 });
 
+var $background = document.querySelector('body');
+
 window.addEventListener('DOMContentLoaded', function () {
-  $title.className = 'title title-fade';
-  $subTitle.className = 'subtext subtext-fade';
+  $title.className = 'title title-fade shadow';
+  $subTitle.className = 'subtext subtext-fade shadow';
+  $background.className = 'background';
 });
 
 $hotLink.addEventListener('click', switchPage);
