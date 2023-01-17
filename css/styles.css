@@ -75,6 +75,23 @@ a:hover {
   font-weight: bold;
 }
 
+.welcome {
+  opacity: 0;
+  color: transparent;
+}
+
+.title-fade {
+  color: white;
+  transition: 5s;
+  opacity: 1;
+}
+
+.subtext-fade {
+  color: white;
+  transition: 10s;
+  opacity: 1;
+}
+
 .main-container {
   height: 200px;
   align-items: center;
@@ -178,6 +195,12 @@ a:hover {
   height: 120px;
   width: 120px;
   border-radius: 50%;
+}
+
+/* search page */
+
+.search-title {
+  margin-top: 4%;
 }
 
 /*

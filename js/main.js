@@ -9,8 +9,8 @@ var $hotLink = document.querySelector('.hot');
 var $hotTracks = document.querySelector('.hot-tracks');
 var $discoverLink = document.querySelector('.discover');
 var $discoverPage = document.querySelector('.discover-page');
-var $mySongsLink = document.querySelector('.songs');
-var $mySongsPage = document.querySelector('.mySongs-Page');
+var $searchLink = document.querySelector('.song');
+var $searchTitle = document.querySelector('.search-title');
 var $hotContainer = document.querySelector('.hot-container');
 var $discoverContainer = document.querySelector('.discover-container');
 var $searchText = document.querySelector('.search-text');
@@ -32,10 +32,13 @@ var $userLikedSongs = document.querySelector('.liked-p');
 var $likedSongsPage = document.querySelector('.likedSongs-page');
 var $likedSongsTitle = document.querySelector('.likedSongs-title');
 var $likedSongsContainer = document.querySelector('.likedSongs-container');
-var $searchResultsPage = document.querySelector('.searchResults-page');
-var $searchResultsContainer = document.querySelector('.searchResults-container');
+var $searchPage = document.querySelector('.search-page');
+var $searchContainer = document.querySelector('.search-container');
+var $searchSong = document.querySelector('.search-song');
+var $title = document.querySelector('.title');
+var $subTitle = document.querySelector('.subtext');
 
-var arr = [$hotTracks, $homePage, $discoverPage, $mySongsPage, $userPage, $playlistPage, $followingPage, $likedSongsPage, $searchResultsPage];
+var arr = [$hotTracks, $homePage, $discoverPage, $searchPage, $userPage, $playlistPage, $followingPage, $likedSongsPage, $searchPage];
 
 function addHidden(arr) {
   for (var i = 0; i < arr.length; i++) {
@@ -71,20 +74,12 @@ function viewSwap(entryType) {
     removeHidden(arr);
   }
 
-  if (data.view === 'mySongs-Page') {
-    addHidden(arr);
-    removeHidden(arr);
-    // $userSearch.classList.add('hidden');
-    // $search.classList.remove('hidden');
-  }
-
-  if (data.view === 'searchResults-page') {
+  if (data.view === 'search-page') {
     addHidden(arr);
     removeHidden(arr);
     $userSearch.classList.add('hidden');
     $search.classList.remove('hidden');
   }
-
 }
 
 function switchPage() {
@@ -93,7 +88,6 @@ function switchPage() {
     viewSwap('hot-tracks');
     $userSearch.classList.add('hidden');
     $search.classList.remove('hidden');
-    $userForm.reset();
     getHotTracks();
   }
 
@@ -110,9 +104,9 @@ function switchPage() {
     $search.classList.add('hidden');
   }
 
-  if (event.target.matches('.songs')) {
-    data.view = 'mySongs-Page';
-    viewSwap('mySongs-Page');
+  if (event.target.matches('.song')) {
+    data.view = 'search-page';
+    viewSwap('search-page');
     $userForm.reset();
   }
 
@@ -120,9 +114,10 @@ function switchPage() {
 
 $search.addEventListener('keydown', function (e) {
   if (e.key === 'Enter') {
-    $searchText.className = 'hidden';
-    data.view = 'searchResults-page';
-    viewSwap('searchResults-page');
+    data.view = 'search-page';
+    $searchSong.classList.add('hidden');
+    $searchTitle.innerText = 'Search Results';
+    viewSwap('search-page');
     getSearchResults();
   }
 });
@@ -136,10 +131,15 @@ $userSearch.addEventListener('keydown', function (e) {
   }
 });
 
+window.addEventListener('DOMContentLoaded', function () {
+  $title.className = 'title title-fade';
+  $subTitle.className = 'subtext subtext-fade';
+});
+
 $hotLink.addEventListener('click', switchPage);
 $icon.addEventListener('click', switchPage);
 $discoverLink.addEventListener('click', switchPage);
-$mySongsLink.addEventListener('click', switchPage);
+$searchLink.addEventListener('click', switchPage);
 
 $navUl.addEventListener('click', function collapseNavBar(e) {
   if (e.target && e.target.matches('.link')) {
@@ -191,21 +191,11 @@ function createTracks(hotTracks) {
 
   var userName = document.createElement('p');
   userName.className = 'username';
-  userName.textContent = hotTracks.uNm;
+  userName.textContent = 'Posted by: ' + hotTracks.uNm;
   userName.addEventListener('click', function () {
     window.open('https://openwhyd.org/u/' + hotTracks.uId);
   });
   col8.appendChild(userName);
-
-  var addbtn = document.createElement('button');
-  addbtn.className = 'addbtn';
-  addbtn.innerText = '+';
-  col8.appendChild(addbtn);
-
-  var addSpan = document.createElement('span');
-  addSpan.className = 'add';
-  addSpan.innerText = 'Add';
-  col8.appendChild(addSpan);
 
   return div;
 }
@@ -457,6 +447,7 @@ function createSearchResults(searchResults) {
   div.appendChild(searchTextCol);
 
   var searchText = document.createElement('p');
+  searchText.className = 'text';
   searchText.innerText = searchResults.name;
   searchText.addEventListener('click', function () {
     window.open('https://openwhyd.org' + searchResults.eId);
@@ -473,19 +464,19 @@ function getSearchResults() {
   searchResults.setRequestHeader('token', 'abc123');
   searchResults.responseType = 'json';
   searchResults.addEventListener('load', function () {
-    $searchResultsContainer.replaceChildren('');
+    $searchContainer.replaceChildren('');
     if (searchResults.response.results.tracks.length === 0) {
       var h2 = document.createElement('h2');
       h2.className = 'none';
       h2.innerText = 'No Songs Found';
-      $searchResultsContainer.appendChild(h2);
+      $searchContainer.appendChild(h2);
     }
     for (var i = 0; i < searchResults.response.results.tracks.length; i++) {
       if (searchResults.response.results.tracks[i] === null) {
         continue;
       }
       var results = createSearchResults(searchResults.response.results.tracks[i]);
-      $searchResultsContainer.appendChild(results);
+      $searchContainer.appendChild(results);
     }
   });
   searchResults.send();
