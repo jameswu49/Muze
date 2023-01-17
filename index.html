@@ -28,8 +28,11 @@
             <p class="logo">Muze</p>
           </div>
         </div>
-        <form role="search">
+        <form class="song-form" role="search">
           <input class="search" type="search" placeholder="Search for Song" aria-label="Search">
+        </form>
+        <form class="user-form" role="search">
+          <input class="search user hidden" type="search" placeholder="Search for User" aria-label="Search">
         </form>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
         aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -150,6 +153,16 @@
             <h1 class="following-title title "></h1>
           </div>
           <div class="following-container">
+          </div>
+        </div>
+      </div>
+
+      <div class="likedSongs-page hidden" data-view="likedSongs-page">
+        <div class="row width fixed">
+          <div class="col-12">
+            <h1 class="likedSongs-title title "></h1>
+          </div>
+          <div class="likedSongs-container">
           </div>
         </div>
       </div>

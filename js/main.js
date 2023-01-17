@@ -21,13 +21,19 @@ var $playlistContainer = document.querySelector('.playlist-container');
 var $userPlaylist = document.querySelector('.playlist-p');
 var $playlistTitle = document.querySelector('.playlist-title');
 var $search = document.querySelector('.search');
-var $form = document.querySelector('form');
+var $userSearch = document.querySelector('.user');
+// var $songForm = document.querySelector('song-form');
+var $userForm = document.querySelector('.user-form');
 var $followingTitle = document.querySelector('.following-title');
 var $followingContainer = document.querySelector('.following-container');
 var $followingPage = document.querySelector('.following-page');
 var $userFollowing = document.querySelector('.following-p');
+var $userLikedSongs = document.querySelector('.liked-p');
+var $likedSongsPage = document.querySelector('.likedSongs-page');
+var $likedSongsTitle = document.querySelector('.likedSongs-title');
+var $likedSongsContainer = document.querySelector('.likedSongs-container');
 
-var arr = [$hotTracks, $homePage, $discoverPage, $mySongsPage, $userPage, $playlistPage, $followingPage];
+var arr = [$hotTracks, $homePage, $discoverPage, $mySongsPage, $userPage, $playlistPage, $followingPage, $likedSongsPage];
 
 function addHidden(arr) {
   for (var i = 0; i < arr.length; i++) {
@@ -54,16 +60,22 @@ function viewSwap(entryType) {
   } if (data.view === 'home-page') {
     addHidden(arr);
     removeHidden(arr);
+    $userSearch.classList.add('hidden');
+    $search.classList.remove('hidden');
   }
 
   if (data.view === 'discover-page') {
     addHidden(arr);
     removeHidden(arr);
+    $userSearch.classList.remove('hidden');
+    $search.classList.add('hidden');
   }
 
   if (data.view === 'mySongs-Page') {
     addHidden(arr);
     removeHidden(arr);
+    $userSearch.classList.add('hidden');
+    $search.classList.remove('hidden');
   }
 }
 
@@ -71,6 +83,10 @@ function switchPage() {
   if (event.target.matches('.hot')) {
     data.view = 'hot-tracks';
     viewSwap('hot-tracks');
+    $userSearch.classList.add('hidden');
+    $search.classList.remove('hidden');
+    $userForm.reset();
+    getHotTracks();
   }
 
   if (event.target.matches('.headphone')) {
@@ -81,22 +97,34 @@ function switchPage() {
   if (event.target.matches('.discover')) {
     data.view = 'discover-page';
     viewSwap('discover-page');
+    $userSearch.classList.remove('hidden');
+    $search.classList.add('hidden');
   }
 
   if (event.target.matches('.songs')) {
     data.view = 'mySongs-Page';
     viewSwap('mySongs-Page');
+    $userForm.reset();
   }
 
 }
 
-$search.addEventListener('keydown', function (e) {
+// $search.addEventListener('keydown', function (e) {
+//   if (e.key === 'Enter') {
+//     $searchText.className = 'hidden';
+//     data.view = 'discover-page';
+//     viewSwap('discover-page');
+//     getUser();
+//     $form.reset();
+//   }
+// });
+
+$userSearch.addEventListener('keydown', function (e) {
   if (e.key === 'Enter') {
     $searchText.className = 'hidden';
     data.view = 'discover-page';
     viewSwap('discover-page');
     getUser();
-    $form.reset();
   }
 });
 
@@ -127,8 +155,6 @@ function getHotTracks() {
   });
   hotTracks.send();
 }
-
-getHotTracks();
 
 function createTracks(hotTracks) {
 
@@ -209,7 +235,7 @@ function createUser(userData) {
 
 function getUser() {
   var userData = new XMLHttpRequest();
-  var getUserPlaylistURL = encodeURIComponent('https://openwhyd.org/search?q=' + $search.value + '&format=json');
+  var getUserPlaylistURL = encodeURIComponent('https://openwhyd.org/search?q=' + $userSearch.value + '&format=json');
   userData.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + getUserPlaylistURL);
   userData.setRequestHeader('token', 'abc123');
   userData.responseType = 'json';
@@ -347,3 +373,63 @@ function getFollowingList() {
   });
   followingList.send();
 }
+
+$userLikedSongs.addEventListener('click', function () {
+  $likedSongsPage.classList.remove('hidden');
+  $userPage.classList.add('hidden');
+  $likedSongsTitle.innerText = 'Liked Songs';
+  getLikedSongs();
+});
+
+function createLikedSongs(likedSongs) {
+  var div = document.createElement('div');
+  div.className = 'likedSongs-row row track';
+
+  var likedSongsImgCol = document.createElement('div');
+  likedSongsImgCol.className = 'col-5 d-flex justify-content-end';
+  div.appendChild(likedSongsImgCol);
+
+  var likedSongsImg = document.createElement('img');
+  likedSongsImg.className = 'userplaylist-image';
+  likedSongsImg.setAttribute('src', likedSongs.img);
+  likedSongsImgCol.appendChild(likedSongsImg);
+
+  var likedSongsTextCol = document.createElement('div');
+  likedSongsTextCol.className = 'col-5 user-playlist-col';
+  div.appendChild(likedSongsTextCol);
+
+  var likedSongsName = document.createElement('p');
+  likedSongsName.className = 'user-playlist text';
+  likedSongsName.innerText = likedSongs.name;
+  likedSongsTextCol.appendChild(likedSongsName);
+  likedSongsName.addEventListener('click', function () {
+    window.open('https://openwhyd.org' + likedSongs.eId);
+  });
+
+  return div;
+}
+
+function getLikedSongs() {
+  var likedSongsList = new XMLHttpRequest();
+  var likedSongsListURL = encodeURIComponent('https://openwhyd.org/u/' + data.userID[0] + '/likes?format=json');
+  likedSongsList.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + likedSongsListURL);
+  likedSongsList.setRequestHeader('token', 'abc123');
+  likedSongsList.responseType = 'json';
+  likedSongsList.addEventListener('load', function () {
+    $likedSongsContainer.replaceChildren('');
+    if (likedSongsList.response.length === 0) {
+      var h2 = document.createElement('h2');
+      h2.className = 'none';
+      h2.innerText = 'No Songs Available';
+      $likedSongsContainer.appendChild(h2);
+    }
+    for (var i = 0; i < likedSongsList.response.length; i++) {
+      var likedSongs = createLikedSongs(likedSongsList.response[i]);
+      $likedSongsContainer.appendChild(likedSongs);
+    }
+  });
+  likedSongsList.send();
+}
+
+// seach for songs only on home page
+// search for users only in discover
