@@ -9,8 +9,8 @@ var $hotLink = document.querySelector('.hot');
 var $hotTracks = document.querySelector('.hot-tracks');
 var $discoverLink = document.querySelector('.discover');
 var $discoverPage = document.querySelector('.discover-page');
-var $mySongsLink = document.querySelector('.songs');
-var $mySongsPage = document.querySelector('.mySongs-Page');
+var $searchLink = document.querySelector('.song');
+var $searchTitle = document.querySelector('.search-title');
 var $hotContainer = document.querySelector('.hot-container');
 var $discoverContainer = document.querySelector('.discover-container');
 var $searchText = document.querySelector('.search-text');
@@ -22,7 +22,7 @@ var $userPlaylist = document.querySelector('.playlist-p');
 var $playlistTitle = document.querySelector('.playlist-title');
 var $search = document.querySelector('.search');
 var $userSearch = document.querySelector('.user');
-// var $songForm = document.querySelector('song-form');
+var $songForm = document.querySelector('.song-form');
 var $userForm = document.querySelector('.user-form');
 var $followingTitle = document.querySelector('.following-title');
 var $followingContainer = document.querySelector('.following-container');
@@ -32,8 +32,13 @@ var $userLikedSongs = document.querySelector('.liked-p');
 var $likedSongsPage = document.querySelector('.likedSongs-page');
 var $likedSongsTitle = document.querySelector('.likedSongs-title');
 var $likedSongsContainer = document.querySelector('.likedSongs-container');
+var $searchPage = document.querySelector('.search-page');
+var $searchContainer = document.querySelector('.search-container');
+var $searchSong = document.querySelector('.search-song');
+var $title = document.querySelector('.title');
+var $subTitle = document.querySelector('.subtext');
 
-var arr = [$hotTracks, $homePage, $discoverPage, $mySongsPage, $userPage, $playlistPage, $followingPage, $likedSongsPage];
+var arr = [$hotTracks, $homePage, $discoverPage, $searchPage, $userPage, $playlistPage, $followingPage, $likedSongsPage, $searchPage];
 
 function addHidden(arr) {
   for (var i = 0; i < arr.length; i++) {
@@ -67,11 +72,9 @@ function viewSwap(entryType) {
   if (data.view === 'discover-page') {
     addHidden(arr);
     removeHidden(arr);
-    $userSearch.classList.remove('hidden');
-    $search.classList.add('hidden');
   }
 
-  if (data.view === 'mySongs-Page') {
+  if (data.view === 'search-page') {
     addHidden(arr);
     removeHidden(arr);
     $userSearch.classList.add('hidden');
@@ -85,13 +88,13 @@ function switchPage() {
     viewSwap('hot-tracks');
     $userSearch.classList.add('hidden');
     $search.classList.remove('hidden');
-    $userForm.reset();
     getHotTracks();
   }
 
   if (event.target.matches('.headphone')) {
     data.view = 'home-page';
     viewSwap('home-page');
+    $songForm.reset();
   }
 
   if (event.target.matches('.discover')) {
@@ -101,23 +104,23 @@ function switchPage() {
     $search.classList.add('hidden');
   }
 
-  if (event.target.matches('.songs')) {
-    data.view = 'mySongs-Page';
-    viewSwap('mySongs-Page');
+  if (event.target.matches('.song')) {
+    data.view = 'search-page';
+    viewSwap('search-page');
     $userForm.reset();
   }
 
 }
 
-// $search.addEventListener('keydown', function (e) {
-//   if (e.key === 'Enter') {
-//     $searchText.className = 'hidden';
-//     data.view = 'discover-page';
-//     viewSwap('discover-page');
-//     getUser();
-//     $form.reset();
-//   }
-// });
+$search.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') {
+    data.view = 'search-page';
+    $searchSong.classList.add('hidden');
+    $searchTitle.innerText = 'Search Results';
+    viewSwap('search-page');
+    getSearchResults();
+  }
+});
 
 $userSearch.addEventListener('keydown', function (e) {
   if (e.key === 'Enter') {
@@ -128,10 +131,15 @@ $userSearch.addEventListener('keydown', function (e) {
   }
 });
 
+window.addEventListener('DOMContentLoaded', function () {
+  $title.className = 'title title-fade';
+  $subTitle.className = 'subtext subtext-fade';
+});
+
 $hotLink.addEventListener('click', switchPage);
 $icon.addEventListener('click', switchPage);
 $discoverLink.addEventListener('click', switchPage);
-$mySongsLink.addEventListener('click', switchPage);
+$searchLink.addEventListener('click', switchPage);
 
 $navUl.addEventListener('click', function collapseNavBar(e) {
   if (e.target && e.target.matches('.link')) {
@@ -183,21 +191,11 @@ function createTracks(hotTracks) {
 
   var userName = document.createElement('p');
   userName.className = 'username';
-  userName.textContent = hotTracks.uNm;
+  userName.textContent = 'Posted by: ' + hotTracks.uNm;
   userName.addEventListener('click', function () {
     window.open('https://openwhyd.org/u/' + hotTracks.uId);
   });
   col8.appendChild(userName);
-
-  var addbtn = document.createElement('button');
-  addbtn.className = 'addbtn';
-  addbtn.innerText = '+';
-  col8.appendChild(addbtn);
-
-  var addSpan = document.createElement('span');
-  addSpan.className = 'add';
-  addSpan.innerText = 'Add';
-  col8.appendChild(addSpan);
 
   return div;
 }
@@ -431,5 +429,55 @@ function getLikedSongs() {
   likedSongsList.send();
 }
 
-// seach for songs only on home page
-// search for users only in discover
+function createSearchResults(searchResults) {
+  var div = document.createElement('div');
+  div.className = 'user-row row track';
+
+  var searchImgCol = document.createElement('div');
+  searchImgCol.className = 'col-5 d-flex justify-content-end';
+  div.appendChild(searchImgCol);
+
+  var searchImg = document.createElement('img');
+  searchImg.className = 'user-image';
+  searchImg.setAttribute('src', searchResults.img);
+  searchImgCol.appendChild(searchImg);
+
+  var searchTextCol = document.createElement('div');
+  searchTextCol.className = 'col-5 user-text-col';
+  div.appendChild(searchTextCol);
+
+  var searchText = document.createElement('p');
+  searchText.className = 'text';
+  searchText.innerText = searchResults.name;
+  searchText.addEventListener('click', function () {
+    window.open('https://openwhyd.org' + searchResults.eId);
+  });
+  searchText.className = 'user-text';
+  searchTextCol.appendChild(searchText);
+  return div;
+}
+
+function getSearchResults() {
+  var searchResults = new XMLHttpRequest();
+  var getSearchResultsURL = encodeURIComponent('https://openwhyd.org/search?q=' + $search.value + '&format=json');
+  searchResults.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + getSearchResultsURL);
+  searchResults.setRequestHeader('token', 'abc123');
+  searchResults.responseType = 'json';
+  searchResults.addEventListener('load', function () {
+    $searchContainer.replaceChildren('');
+    if (searchResults.response.results.tracks.length === 0) {
+      var h2 = document.createElement('h2');
+      h2.className = 'none';
+      h2.innerText = 'No Songs Found';
+      $searchContainer.appendChild(h2);
+    }
+    for (var i = 0; i < searchResults.response.results.tracks.length; i++) {
+      if (searchResults.response.results.tracks[i] === null) {
+        continue;
+      }
+      var results = createSearchResults(searchResults.response.results.tracks[i]);
+      $searchContainer.appendChild(results);
+    }
+  });
+  searchResults.send();
+}
