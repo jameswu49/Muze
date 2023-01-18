@@ -3,7 +3,7 @@
 }
 
 .background {
-  background-image: url("../images/image.jpg");
+  background-image: url("../images/image.webp");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -16,10 +16,10 @@
   margin: 0 auto;
 }
 
-.hot-container {
+/* .hot-container {
   max-height: 900px;
   max-width: 900px;
-}
+} */
 
 .flex {
   display: flex;
