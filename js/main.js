@@ -13,7 +13,7 @@ var $hotContainer = document.querySelector('.hot-container');
 var $discoverContainer = document.querySelector('.discover-container');
 var $searchText = document.querySelector('.search-text');
 var $userTitle = document.querySelector('.user-title');
-var $userPage = document.querySelector('.user-Page');
+var $userPage = document.querySelector('.user-page');
 var $playlistPage = document.querySelector('.playlist-page');
 var $playlistContainer = document.querySelector('.playlist-container');
 var $userPlaylist = document.querySelector('.playlist-p');
@@ -27,7 +27,7 @@ var $followingContainer = document.querySelector('.following-container');
 var $followingPage = document.querySelector('.following-page');
 var $userFollowing = document.querySelector('.following-p');
 var $userLikedSongs = document.querySelector('.liked-p');
-var $likedSongsPage = document.querySelector('.likedSongs-page');
+var $likedSongsPage = document.querySelector('.likedsongs-page');
 var $likedSongsTitle = document.querySelector('.likedSongs-title');
 var $likedSongsContainer = document.querySelector('.likedSongs-container');
 var $searchPage = document.querySelector('.search-page');
@@ -129,12 +129,9 @@ $userSearch.addEventListener('keydown', function (e) {
   }
 });
 
-var $background = document.querySelector('body');
-
 window.addEventListener('DOMContentLoaded', function () {
   $title.className = 'title title-fade shadow';
   $subTitle.className = 'subtext subtext-fade shadow';
-  $background.className = 'background';
 });
 
 $hotLink.addEventListener('click', switchPage);

@@ -10,8 +10,8 @@
   background-position: center;
   width: 100vw;
   height: 100vh;
-  transition: 8s;
-  opacity: 1;
+
+  /* transition: 8s; */
 }
 
 .container {
@@ -19,7 +19,8 @@
 }
 
 .hot-container {
-  height: 100vh;
+  max-height: 900px;
+  max-width: 900px;
 }
 
 .flex {
@@ -167,14 +168,14 @@ a:hover {
 }
 
 .discover-title {
-  margin-top: 4%;
+  margin-top: 4rem;
 }
 
 .search-text {
   color: white;
   text-align: center;
   font-weight: bold;
-  margin-top: 2%;
+  margin-top: 2rem;
 }
 
 .discover-user {
@@ -193,11 +194,11 @@ a:hover {
 }
 
 .search-title {
-  margin-top: 4%;
+  margin-top: 4rem;
 }
 
 .icon-div {
-  margin-left: 5%;
+  margin-left: 5rem;
 }
 
 .fa-headphones {
@@ -237,7 +238,7 @@ a:hover {
 }
 
 .user-text {
-  font-size: 30px;
+  font-size: 20px;
   margin-bottom: 15px;
   cursor: pointer;
   color: white;
@@ -254,7 +255,7 @@ a:hover {
 .none {
   color: white;
   text-align: center;
-  margin-bottom: 22%;
+  margin-bottom: 22rem;
   padding-left: 5px;
 }
 
@@ -264,48 +265,274 @@ img {
   border-radius: 50%;
 }
 
-@media screen and (min-width: 500px) {
-  .text {
+@media screen and (max-width: 768px) {
+  .headphone {
+    margin: 0;
+  }
+
+  .logo {
+    margin-left: 8px;
+  }
+
+  .column-12 {
+    margin-bottom: 8rem;
+  }
+
+  img {
+    height: 100px;
+    width: 100px;
+  }
+
+  .hot-tracks,
+  .search-page,
+  .track,
+  .discover-page,
+  .user-page,
+  .playlist-page,
+  .following-page,
+  .likedsongs-page {
+    height: 200px;
+  }
+
+  .song-name,
+  .user-text {
+    font-size: 15px;
+  }
+
+  .username {
+    font-size: 10px;
+  }
+
+  .discover-title {
+    margin-top: 0;
+  }
+
+  .search-text {
+    margin-top: 1rem;
+  }
+
+  .fa-solid {
+    font-size: 70px;
+  }
+
+  .fa-headphones,
+  .fa-heart {
+    margin-right: 5px;
+  }
+
+  .playlist-p,
+  .following-p,
+  .liked-p {
     font-size: 20px;
+    text-align: center;
+    width: 270%;
+    margin-bottom: 2rem;
+  }
+
+  .following-p {
+    width: 270%;
+  }
+
+  .user-playlist {
+    font-size: 20px;
+  }
+
+  .col-12 {
+    margin-top: 4em;
   }
 }
 
-@media screen and (min-width: 781px) {
-  img {
-    margin-left: 80px;
+@media screen and (min-width: 768px) {
+  .headphone {
+    margin-left: 34px;
   }
 
-  .text {
+  .logo {
+    margin-left: 40px;
+  }
+
+  ul {
+    margin-left: 3rem;
+  }
+
+  .column-12 {
+    margin-bottom: 3rem;
+  }
+
+  .discover-title {
+    margin-top: 0;
+  }
+
+  .col-12 {
+    margin-top: 8rem;
+  }
+
+  img {
+    height: 130px;
+    width: 130px;
+  }
+
+  .hot-tracks,
+  .search-page,
+  .track,
+  .discover-page,
+  .user-page,
+  .playlist-page,
+  .following-page,
+  .likedsongs-page {
+    height: 200px;
+  }
+
+  .song-name,
+  .user-text {
+    font-size: 25px;
+  }
+
+  .username {
+    font-size: 17px;
+  }
+
+  .search-text {
+    margin-top: 1rem;
+  }
+
+  .fa-solid {
+    font-size: 80px;
+  }
+
+  .fa-headphones,
+  .fa-heart {
+    margin-right: 5px;
+  }
+
+  .playlist-p,
+  .following-p,
+  .liked-p {
+    font-size: 25px;
+    align-items: center;
+    margin-bottom: 0;
+  }
+
+  .user-playlist {
+    font-size: 30px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .link {
+    margin: 0 12px;
+  }
+
+  ul {
+    margin: 0 auto;
+  }
+
+  .headphone {
+    margin-left: 15px;
+  }
+
+  .logo {
+    margin: 0 22px;
+  }
+
+  .search {
+    margin-left: 30px;
+  }
+
+  .column-12 {
+    margin-bottom: 1rem;
+  }
+}
+
+@media screen and (min-width: 1140px) {
+  .discover-title {
+    font-size: 35px;
+  }
+
+  .search-text {
     font-size: 25px;
   }
 }
 
-@media screen and (min-width: 994px) {
-  .search {
-    width: 40vw;
-    margin-left: 30px;
+@media screen and (min-width: 1280px) {
+  .headphone {
+    margin-left: 12px;
   }
 
-  .link {
-    margin: 0 15px;
+  .logo {
+    margin-left: 20px;
   }
-}
 
-@media screen and (min-width: 1122px) {
+  ul {
+    margin-left: 3rem;
+  }
+
+  .column-12 {
+    margin-bottom: 1rem;
+  }
+
   img {
-    margin-left: 150px;
-    height: 160px;
-    width: 160px;
+    height: 120px;
+    width: 120px;
   }
 
-  .col-8 {
-    padding-left: 100px;
+  .hot-tracks,
+  .search-page,
+  .track,
+  .discover-page,
+  .user-page,
+  .playlist-page,
+  .following-page,
+  .likedsongs-page {
+    height: 200px;
+  }
+
+  .song-name,
+  .user-text {
+    font-size: 30px;
+  }
+
+  .username {
+    font-size: 20px;
+  }
+
+  .col-12 {
+    margin-top: 9rem;
+  }
+
+  .discover-title {
+    margin-top: 0;
+  }
+
+  .search-text {
+    margin-top: 1rem;
+  }
+
+  .fa-solid {
+    font-size: 80px;
+  }
+
+  .fa-headphones,
+  .fa-heart {
+    margin-right: 5px;
+  }
+
+  .playlist-p,
+  .following-p,
+  .liked-p {
+    font-size: 25px;
+    align-items: center;
+    margin-bottom: 0;
+  }
+
+  .user-playlist {
+    font-size: 30px;
   }
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1280px) {
   .search {
-    margin-left: 40px;
+    margin-left: 5%;
   }
 
   .link {
@@ -314,6 +541,18 @@ img {
 
   .text {
     font-size: 30px;
+  }
+
+  .col-12 {
+    margin-top: 9rem;
+  }
+
+  .discover-title {
+    font-size: 35px;
+  }
+
+  .search-text {
+    font-size: 25px;
   }
 }
 
@@ -328,7 +567,7 @@ img {
   }
 
   .headphone {
-    margin-left: 25px;
+    margin-left: 13px;
   }
 
   img {
@@ -392,5 +631,13 @@ img {
 
   .username {
     font-size: 20px;
+  }
+
+  .column-12 {
+    margin-bottom: 3rem;
+  }
+
+  .discover-title {
+    margin-top: 0;
   }
 }
