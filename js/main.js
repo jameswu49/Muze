@@ -35,6 +35,7 @@ var $searchContainer = document.querySelector('.search-container');
 var $searchSong = document.querySelector('.search-song');
 var $title = document.querySelector('.title');
 var $subTitle = document.querySelector('.subtext');
+var $loading = document.querySelectorAll('div.lds-facebook');
 
 var arr = [$hotTracks, $homePage, $discoverPage, $searchPage, $userPage, $playlistPage, $followingPage, $likedSongsPage, $searchPage];
 
@@ -126,6 +127,7 @@ $userSearch.addEventListener('keydown', function (e) {
     data.view = 'discover-page';
     viewSwap('discover-page');
     getUser();
+
   }
 });
 
@@ -154,6 +156,7 @@ function getHotTracks() {
   hotTracks.setRequestHeader('token', 'abc123');
   hotTracks.responseType = 'json';
   hotTracks.addEventListener('load', function () {
+    $loading.className = 'hidden';
     for (var i = 0; i < hotTracks.response.tracks.length; i++) {
       var hot = createTracks(hotTracks.response.tracks[i]);
       $hotContainer.appendChild(hot);
@@ -230,6 +233,7 @@ function createUser(userData) {
 }
 
 function getUser() {
+  $discoverContainer.classList.remove('hidden');
   var userData = new XMLHttpRequest();
   var getUserPlaylistURL = encodeURIComponent('https://openwhyd.org/search?q=' + $userSearch.value + '&format=json');
   userData.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + getUserPlaylistURL);
@@ -252,6 +256,7 @@ function getUser() {
 }
 
 function getUserPlaylist() {
+  $playlistContainer.classList.remove('hidden');
   var userPlaylist = new XMLHttpRequest();
   var getUserPlaylistURL = encodeURIComponent('https://openwhyd.org/u/' + data.userID[0] + '/playlists?format=json');
   userPlaylist.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + getUserPlaylistURL);
@@ -349,6 +354,7 @@ function createFollowing(userFollowing) {
 }
 
 function getFollowingList() {
+  $followingContainer.classList.remove('hidden');
   var followingList = new XMLHttpRequest();
   var followingListURL = encodeURIComponent('https://openwhyd.org/api/follow/fetchFollowers/' + data.userID[0]);
   followingList.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + followingListURL);
@@ -406,6 +412,7 @@ function createLikedSongs(likedSongs) {
 }
 
 function getLikedSongs() {
+  $likedSongsContainer.classList.remove('hidden');
   var likedSongsList = new XMLHttpRequest();
   var likedSongsListURL = encodeURIComponent('https://openwhyd.org/u/' + data.userID[0] + '/likes?format=json');
   likedSongsList.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + likedSongsListURL);
@@ -456,6 +463,7 @@ function createSearchResults(searchResults) {
 }
 
 function getSearchResults() {
+  $searchContainer.classList.remove('hidden');
   var searchResults = new XMLHttpRequest();
   var getSearchResultsURL = encodeURIComponent('https://openwhyd.org/search?q=' + $search.value + '&format=json');
   searchResults.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + getSearchResultsURL);
