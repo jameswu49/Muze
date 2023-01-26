@@ -3,23 +3,17 @@
 }
 
 .background {
-  background-image: url("../images/image.jpg");
+  background-image: url("../images/image.webp");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
   width: 100vw;
   height: 100vh;
-  transition: 8s;
-  opacity: 1;
 }
 
 .container {
   margin: 0 auto;
-}
-
-.hot-container {
-  height: 100vh;
 }
 
 .flex {
@@ -27,9 +21,9 @@
 }
 
 .headphone {
-  font-size: 60px;
+  font-size: 3rem;
   color: white;
-  margin-left: 25px;
+  margin: 0;
 }
 
 .menu {
@@ -38,8 +32,18 @@
 
 .logo {
   color: white;
-  margin-left: 30px;
-  font-size: 20px;
+  margin-left: 6px;
+  font-size: 1rem;
+}
+
+/* .column-12 {
+  margin-top: 30px;
+} */
+
+img {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
 }
 
 .search {
@@ -64,19 +68,23 @@
 
 ul {
   margin: 0 20px;
-  font-size: 20px;
+  font-size: 1rem;
+}
+
+.link.song {
+  margin-bottom: 15px;
 }
 
 a:hover {
   cursor: pointer;
   text-decoration: underline;
-  color: white;
+  color: rgb(198, 198, 198);
   transform: translateY(-5px);
 }
 
 .title,
 .subtext {
-  color: white;
+  color: rgb(232, 232, 232);
   text-align: center;
   font-weight: bold;
 }
@@ -100,19 +108,33 @@ a:hover {
   color: white;
   transition: 10s;
   opacity: 1;
+  margin: auto;
+  width: fit-content;
+}
+
+.vh-25 {
+  height: 25vh;
+  align-items: center;
 }
 
 .main-container {
-  height: 200px;
   align-items: center;
   display: flex;
   justify-content: center;
 }
 
+.playlist-container {
+  top: 200px;
+  bottom: 0;
+  position: fixed;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
 .home-page {
-  height: 350px;
+  height: 100%;
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
 .width {
@@ -123,7 +145,7 @@ a:hover {
   position: fixed;
   left: 12px;
   overflow-y: auto;
-  height: 80%;
+  height: 90%;
 }
 
 .track {
@@ -138,6 +160,21 @@ a:hover {
   display: none;
 }
 
+.hot-tracks,
+.search-page,
+.track,
+.discover-page,
+.user-page,
+.playlist-page,
+.following-page,
+.likedsongs-page {
+  height: 250px;
+}
+
+.playlist-title {
+  margin-top: 20px;
+}
+
 .song-name,
 .username,
 .playlist {
@@ -146,13 +183,13 @@ a:hover {
 }
 
 .song-name {
-  font-size: 25px;
+  font-size: 1rem;
   margin-bottom: 15px;
   cursor: pointer;
 }
 
 .username {
-  font-size: 20px;
+  font-size: 0.8rem;
   line-height: 0;
   padding-bottom: 5px;
   cursor: pointer;
@@ -165,18 +202,25 @@ a:hover {
 }
 
 .discover-title {
-  margin-top: 4%;
+  margin-top: 4rem;
+}
+
+.search-title {
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .search-text {
   color: white;
   text-align: center;
   font-weight: bold;
-  margin-top: 2%;
+  margin-top: 2rem;
 }
 
 .discover-user {
-  font-size: 30px;
+  font-size: 1rem;
   margin-bottom: 15px;
   cursor: pointer;
   color: white;
@@ -190,52 +234,61 @@ a:hover {
   border-radius: 50%;
 }
 
-.search-title {
-  margin-top: 4%;
+.icon-div {
+  justify-content: center;
+  width: 100%;
+  height: 50%;
+  align-items: end;
 }
 
-.icon-div {
-  margin-left: 5%;
+.playlist-col,
+.following-col,
+.liked-col {
+  text-align: center;
+  width: 100%;
+  height: 50%;
 }
 
 .fa-headphones {
-  font-size: 100px;
+  font-size: 4rem;
   color: white;
-  justify-content: end;
-}
-
-.playlist-col {
-  padding-top: 25px;
+  margin-right: 10px;
 }
 
 .fa-users {
-  font-size: 85px;
+  font-size: 4rem;
   color: white;
-  justify-content: end;
 }
 
-.text {
-  font-size: 35px;
+.fa-heart {
+  font-size: 4rem;
+  color: white;
+}
+
+.following-p,
+.playlist-p,
+.liked-p {
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+}
+
+.user-playlist {
+  font-size: 1.2rem;
   cursor: pointer;
   padding-left: 2%;
   color: white;
 }
 
-.fa-heart {
-  font-size: 100px;
-  color: white;
-  justify-content: end;
-}
-
 .user-image,
 .userplaylist-image {
-  height: 120px;
-  width: 120px;
+  height: 100px;
+  width: 100px;
   border-radius: 50%;
 }
 
 .user-text {
-  font-size: 30px;
+  font-size: 1rem;
   margin-bottom: 15px;
   cursor: pointer;
   color: white;
@@ -245,150 +298,238 @@ a:hover {
 
 .track-num {
   color: white;
-  margin-left: 2%;
-  font-size: 18px;
+  font-size: 0.9rem;
+  width: 200%;
+  margin-left: 4px;
 }
 
 .none {
   color: white;
   text-align: center;
-  margin-bottom: 22%;
+  margin-bottom: 22rem;
   padding-left: 5px;
 }
 
-img {
-  height: 150px;
-  width: 150px;
-  border-radius: 50%;
+.search-col {
+  display: flex;
+  height: 50%;
+  justify-content: center;
+  align-items: center;
 }
 
-@media screen and (min-width: 500px) {
-  .text {
-    font-size: 20px;
+.lds-facebook {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  left: 37%;
+  bottom: 50%;
+}
+
+.load-hot {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  left: 116%;
+  bottom: 48%;
+}
+
+.lds-facebook div {
+  display: inline-block;
+  position: absolute;
+  left: 8px;
+  width: 16px;
+  background: #fff;
+  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+
+.lds-facebook div:nth-child(1) {
+  left: 8px;
+  animation-delay: -0.24s;
+  background: white;
+}
+
+.lds-facebook div:nth-child(2) {
+  left: 32px;
+  animation-delay: -0.12s;
+  background: white;
+}
+
+.lds-facebook div:nth-child(3) {
+  left: 56px;
+  animation-delay: 0;
+  background: white;
+}
+
+@keyframes lds-facebook {
+  0% {
+    top: 8px;
+    height: 64px;
+  }
+
+  50%,
+  100% {
+    top: 24px;
+    height: 32px;
   }
 }
 
-@media screen and (min-width: 781px) {
-  img {
-    margin-left: 80px;
-  }
-
-  .text {
-    font-size: 25px;
+@media screen and (min-width: 375px) {
+  .lds-facebook {
+    left: 39%;
   }
 }
 
-@media screen and (min-width: 994px) {
-  .search {
-    width: 40vw;
-    margin-left: 30px;
-  }
-
-  .link {
-    margin: 0 15px;
+@media screen and (min-width: 600px) {
+  .lds-facebook {
+    left: 44%;
   }
 }
 
-@media screen and (min-width: 1122px) {
-  img {
-    margin-left: 150px;
-    height: 160px;
-    width: 160px;
+@media screen and (min-width: 767px) {
+  img,
+  .user-image,
+  .userplaylist-image {
+    height: 130px;
+    width: 130px;
   }
 
-  .col-8 {
-    padding-left: 100px;
+  .song-name {
+    font-size: 1.4rem;
+  }
+
+  .username,
+  .track-num {
+    font-size: 1rem;
+    margin-left: 7px;
+  }
+
+  .user-text,
+  .user-playlist {
+    font-size: 1.6rem;
+  }
+
+  .lds-facebook {
+    left: 45%;
   }
 }
 
-@media screen and (min-width: 1200px) {
-  .search {
-    margin-left: 40px;
+@media screen and (min-width: 992px) {
+  ul {
+    align-items: center;
   }
 
-  .link {
-    margin: 0 25px;
+  li {
+    margin: 0 20px;
+    font-size: 1.1rem;
   }
 
-  .text {
-    font-size: 30px;
-  }
-}
-
-@media screen and (min-width: 1400px) {
-  .search {
-    margin-right: 40px;
-    width: 50vw;
-  }
-
-  .link {
-    margin: 0 25px;
+  .link.song {
+    margin-bottom: 0;
   }
 
   .headphone {
-    margin-left: 25px;
+    margin-left: 15px;
+    margin-right: 13px;
+  }
+
+  .logo {
+    margin-left: 20px;
   }
 
   img {
-    margin-left: 350px;
+    height: 130px;
+    width: 130px;
   }
 
-  .col-8 {
-    padding-left: 140px;
+  .song-name {
+    font-size: 1.5rem;
   }
 
-  .text {
-    font-size: 35px;
+  .username {
+    font-size: 1rem;
+  }
+
+  .hot-title {
+    margin-top: 30px;
+  }
+
+  .user-text {
+    font-size: 1.5rem;
+  }
+
+  .lds-facebook {
+    left: 47%;
   }
 }
 
-@media screen and (min-width: 1640px) {
-  .search {
-    margin-left: 50px;
+@media screen and (min-width: 1300px) {
+  .headphone {
+    margin-left: 20px;
+    margin-right: 20px;
   }
 
-  .link {
-    margin: 0 30px;
+  .logo {
+    margin-left: 26px;
+  }
+
+  li {
+    margin: 0 45px;
+    font-size: 1.1rem;
+  }
+}
+
+@media screen and (min-width: 1550px) {
+  .headphone {
+    margin-left: 20px;
+    margin-right: 30px;
+  }
+
+  li {
+    margin: 0 60px;
+    font-size: 1.2rem;
   }
 }
 
 @media screen and (min-width: 1800px) {
-  .search {
-    margin-right: 80px;
-    width: 55vw;
+  .headphone {
+    margin-left: 20px;
+    margin-right: 50px;
   }
 
-  .link {
-    margin: 0 35px;
-  }
-}
-
-@media screen and (min-width: 2037px) {
-  .search {
-    margin-left: 80px;
-    width: 60vw;
+  li {
+    margin: 0 70px;
+    font-size: 1.4rem;
   }
 
-  .link {
-    margin: 0 30px;
+  .track-num {
+    margin-left: 16px;
+  }
+
+  .lds-facebook {
+    left: 48%;
   }
 }
 
-@media screen and (min-width: 2043px) {
-  .search {
-    margin-left: 100px;
-    width: 60vw;
+@media screen and (min-width: 2133px) {
+  .headphone {
+    margin-left: 40px;
+    margin-right: 50px;
+    font-size: 5rem;
   }
 
-  .link {
-    margin: 0 30px;
+  .logo {
+    margin-left: 52px;
+    font-size: 1.5rem;
   }
 
-  .song-name {
-    font-size: 35px;
+  li {
+    margin: 0 77px;
+    font-size: 1.5rem;
   }
 
-  .username {
-    font-size: 20px;
+  .playlist-container {
+    top: 250px;
   }
 }

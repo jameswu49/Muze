@@ -20,7 +20,7 @@
     rel="stylesheet">
 </head>
 
-<body>
+<body class="background">
 
 
   <header>
@@ -62,36 +62,32 @@
             </li>
           </ul>
         </div>
-
       </nav>
-
-
     </div>
   </header>
 
   <main>
-
-    <div class="main-container">
+    <div class="main-container container-fluid">
       <div data-view="home-page" class="home-page">
-        <div class="row">
+        <div class="row vh-25">
           <div class="column-12">
             <h1 class="title welcome">Muze: A New Way To Discover Music</h1>
-            <h5 class="subtext welcome">Come Discover Your Favorite Artist</h5>
+            <h5 class="subtext welcome">Discover Your Favorite Artist</h5>
           </div>
-
-          <div class="test-container">
-
-          </div>
-
         </div>
       </div>
 
       <div class="hot-tracks hidden" data-view="hot-tracks">
         <div class="row width fixed">
           <div class="col-12">
-            <h1 class="title">Hot Tracks</h1>
+            <h1 class="title hot-title">Hot Tracks</h1>
           </div>
-          <div class="hot-container">
+          <div class="hot-container hidden">
+            <div class="lds-facebook">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
           </div>
         </div>
       </div>
@@ -102,39 +98,44 @@
             <h1 class="title discover-title">Discover Your New Favorite Artist</h1>
             <h3 class="search-text">Search For A User!</h3>
           </div>
-          <div class="discover-container">
+          <div class="discover-container hidden">
+            <div class="lds-facebook">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
           </div>
         </div>
       </div>
 
 
-      <div class="user-Page hidden" data-view="user-Page">
+      <div class="user-page hidden" data-view="user-page">
         <div class="row width fixed">
           <div class="col-12">
             <h1 class="user-title title">User's Page</h1>
           </div>
           <div class="users-container">
             <div class="row track">
-              <div class="col-5 justify-content-end d-flex icon-div">
+              <div class="col-12 d-flex icon-div">
                 <i class="fa-solid fa-headphones"></i>
               </div>
-              <div class="col-5 playlist-col">
+              <div class="col-12 playlist-col">
                 <p class=" playlist-p text">Playlist</p>
               </div>
             </div>
             <div class="row track">
-              <div class="col-5 justify-content-end d-flex icon-div">
+              <div class="col-12 d-flex icon-div">
                 <i class="fa-solid fa-users"></i>
               </div>
-              <div class="col-5 following-col">
+              <div class="col-12 following-col">
                 <p class="following-p text">Following</p>
               </div>
             </div>
             <div class="row track">
-              <div class="col-5 justify-content-end d-flex icon-div">
+              <div class="col-12 d-flex icon-div">
                 <i class="fa-solid fa-heart"></i>
               </div>
-              <div class="col-5 following-col">
+              <div class="col-12 following-col">
                 <p class="liked-p text">Liked songs</p>
               </div>
             </div>
@@ -147,7 +148,12 @@
           <div class="col-12">
             <h1 class="playlist-title title "></h1>
           </div>
-          <div class="playlist-container">
+          <div class="playlist-container hidden">
+            <div class="lds-facebook">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
           </div>
         </div>
       </div>
@@ -157,17 +163,27 @@
           <div class="col-12">
             <h1 class="following-title title "></h1>
           </div>
-          <div class="following-container">
+          <div class="following-container hidden">
+            <div class="lds-facebook">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="likedSongs-page hidden" data-view="likedSongs-page">
+      <div class="likedsongs-page hidden" data-view="likedsongs-page">
         <div class="row width fixed">
           <div class="col-12">
             <h1 class="likedSongs-title title "></h1>
           </div>
-          <div class="likedSongs-container">
+          <div class="likedSongs-container hidden">
+            <div class="lds-facebook">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
           </div>
         </div>
       </div>
@@ -175,14 +191,18 @@
       <div class="search-page hidden" data-view="search-page">
         <div class="row width fixed">
           <div class="col-12">
-            <h1 class="title search-title">Search</h1>
-            <h3 class="search-song search-text">Search For A Song!</h3>
+            <h1 class="title search-title">Search For A Song!</h1>
           </div>
-          <div class="search-container">
-
+          <div class="search-container hidden">
+            <div class="lds-facebook">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
           </div>
         </div>
       </div>
+
 
     </div>
   </main>

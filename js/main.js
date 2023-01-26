@@ -13,7 +13,7 @@ var $hotContainer = document.querySelector('.hot-container');
 var $discoverContainer = document.querySelector('.discover-container');
 var $searchText = document.querySelector('.search-text');
 var $userTitle = document.querySelector('.user-title');
-var $userPage = document.querySelector('.user-Page');
+var $userPage = document.querySelector('.user-page');
 var $playlistPage = document.querySelector('.playlist-page');
 var $playlistContainer = document.querySelector('.playlist-container');
 var $userPlaylist = document.querySelector('.playlist-p');
@@ -27,14 +27,14 @@ var $followingContainer = document.querySelector('.following-container');
 var $followingPage = document.querySelector('.following-page');
 var $userFollowing = document.querySelector('.following-p');
 var $userLikedSongs = document.querySelector('.liked-p');
-var $likedSongsPage = document.querySelector('.likedSongs-page');
+var $likedSongsPage = document.querySelector('.likedsongs-page');
 var $likedSongsTitle = document.querySelector('.likedSongs-title');
 var $likedSongsContainer = document.querySelector('.likedSongs-container');
 var $searchPage = document.querySelector('.search-page');
 var $searchContainer = document.querySelector('.search-container');
-var $searchSong = document.querySelector('.search-song');
 var $title = document.querySelector('.title');
 var $subTitle = document.querySelector('.subtext');
+var $loader = document.querySelector('.lds-facebook');
 
 var arr = [$hotTracks, $homePage, $discoverPage, $searchPage, $userPage, $playlistPage, $followingPage, $likedSongsPage, $searchPage];
 
@@ -113,7 +113,6 @@ function switchPage() {
 $search.addEventListener('keydown', function (e) {
   if (e.key === 'Enter') {
     data.view = 'search-page';
-    $searchSong.classList.add('hidden');
     $searchTitle.innerText = 'Search Results';
     viewSwap('search-page');
     getSearchResults();
@@ -126,15 +125,17 @@ $userSearch.addEventListener('keydown', function (e) {
     data.view = 'discover-page';
     viewSwap('discover-page');
     getUser();
+
   }
 });
 
-var $background = document.querySelector('body');
+function hideLoader() {
+  $loader.style.display = 'none';
+}
 
 window.addEventListener('DOMContentLoaded', function () {
   $title.className = 'title title-fade shadow';
   $subTitle.className = 'subtext subtext-fade shadow';
-  $background.className = 'background';
 });
 
 $hotLink.addEventListener('click', switchPage);
@@ -153,10 +154,12 @@ var hotTracksURL = encodeURIComponent('https://openwhyd.org/hot?format=json');
 
 function getHotTracks() {
   var hotTracks = new XMLHttpRequest();
+  $hotContainer.classList.remove('hidden');
   hotTracks.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + hotTracksURL);
   hotTracks.setRequestHeader('token', 'abc123');
   hotTracks.responseType = 'json';
   hotTracks.addEventListener('load', function () {
+    hideLoader();
     for (var i = 0; i < hotTracks.response.tracks.length; i++) {
       var hot = createTracks(hotTracks.response.tracks[i]);
       $hotContainer.appendChild(hot);
@@ -206,7 +209,7 @@ function createUser(userData) {
   div.className = 'user-row row track';
 
   var userImgCol = document.createElement('div');
-  userImgCol.className = 'col-5 d-flex justify-content-end';
+  userImgCol.className = 'userImg col-5 d-flex justify-content-end';
   div.appendChild(userImgCol);
 
   var userImg = document.createElement('img');
@@ -233,6 +236,7 @@ function createUser(userData) {
 }
 
 function getUser() {
+  $discoverContainer.classList.remove('hidden');
   var userData = new XMLHttpRequest();
   var getUserPlaylistURL = encodeURIComponent('https://openwhyd.org/search?q=' + $userSearch.value + '&format=json');
   userData.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + getUserPlaylistURL);
@@ -240,6 +244,7 @@ function getUser() {
   userData.responseType = 'json';
   userData.addEventListener('load', function () {
     $discoverContainer.replaceChildren('');
+    hideLoader();
     if (userData.response.results.users.length === 0) {
       var h2 = document.createElement('h2');
       h2.className = 'none';
@@ -255,6 +260,7 @@ function getUser() {
 }
 
 function getUserPlaylist() {
+  $playlistContainer.classList.remove('hidden');
   var userPlaylist = new XMLHttpRequest();
   var getUserPlaylistURL = encodeURIComponent('https://openwhyd.org/u/' + data.userID[0] + '/playlists?format=json');
   userPlaylist.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + getUserPlaylistURL);
@@ -262,6 +268,7 @@ function getUserPlaylist() {
   userPlaylist.responseType = 'json';
   userPlaylist.addEventListener('load', function () {
     $playlistContainer.replaceChildren('');
+    hideLoader();
     if (userPlaylist.response.length === 0) {
       var h2 = document.createElement('h2');
       h2.className = 'none';
@@ -352,6 +359,7 @@ function createFollowing(userFollowing) {
 }
 
 function getFollowingList() {
+  $followingContainer.classList.remove('hidden');
   var followingList = new XMLHttpRequest();
   var followingListURL = encodeURIComponent('https://openwhyd.org/api/follow/fetchFollowers/' + data.userID[0]);
   followingList.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + followingListURL);
@@ -359,6 +367,7 @@ function getFollowingList() {
   followingList.responseType = 'json';
   followingList.addEventListener('load', function () {
     $followingContainer.replaceChildren('');
+    hideLoader();
     if (followingList.response.length === 0) {
       var h2 = document.createElement('h2');
       h2.className = 'none';
@@ -391,6 +400,9 @@ function createLikedSongs(likedSongs) {
   var likedSongsImg = document.createElement('img');
   likedSongsImg.className = 'userplaylist-image';
   likedSongsImg.setAttribute('src', likedSongs.img);
+  likedSongsImg.addEventListener('error', function () {
+    likedSongsImg.setAttribute('src', '../images/error.png');
+  });
   likedSongsImgCol.appendChild(likedSongsImg);
 
   var likedSongsTextCol = document.createElement('div');
@@ -409,6 +421,7 @@ function createLikedSongs(likedSongs) {
 }
 
 function getLikedSongs() {
+  $likedSongsContainer.classList.remove('hidden');
   var likedSongsList = new XMLHttpRequest();
   var likedSongsListURL = encodeURIComponent('https://openwhyd.org/u/' + data.userID[0] + '/likes?format=json');
   likedSongsList.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + likedSongsListURL);
@@ -416,6 +429,7 @@ function getLikedSongs() {
   likedSongsList.responseType = 'json';
   likedSongsList.addEventListener('load', function () {
     $likedSongsContainer.replaceChildren('');
+    hideLoader();
     if (likedSongsList.response.length === 0) {
       var h2 = document.createElement('h2');
       h2.className = 'none';
@@ -459,6 +473,7 @@ function createSearchResults(searchResults) {
 }
 
 function getSearchResults() {
+  $searchContainer.classList.remove('hidden');
   var searchResults = new XMLHttpRequest();
   var getSearchResultsURL = encodeURIComponent('https://openwhyd.org/search?q=' + $search.value + '&format=json');
   searchResults.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + getSearchResultsURL);
@@ -466,6 +481,7 @@ function getSearchResults() {
   searchResults.responseType = 'json';
   searchResults.addEventListener('load', function () {
     $searchContainer.replaceChildren('');
+    hideLoader();
     if (searchResults.response.results.tracks.length === 0) {
       var h2 = document.createElement('h2');
       h2.className = 'none';
