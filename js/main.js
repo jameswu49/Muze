@@ -5,13 +5,11 @@ var $navbarDiv = document.querySelector('.navbar-collapse');
 var $navUl = document.querySelector('ul');
 var $hotLink = document.querySelector('.hot');
 var $hotTracks = document.querySelector('.hot-tracks');
-var $hotTracksTitle = document.querySelector('.hot-title');
 var $discoverLink = document.querySelector('.discover');
 var $discoverPage = document.querySelector('.discover-page');
 var $searchLink = document.querySelector('.song');
 var $searchTitle = document.querySelector('.search-title');
 var $hotContainer = document.querySelector('.hot-container');
-var $discoverTitle = document.querySelector('.discover-title');
 var $discoverContainer = document.querySelector('.discover-container');
 var $searchText = document.querySelector('.search-text');
 var $userTitle = document.querySelector('.user-title');
@@ -34,9 +32,9 @@ var $likedSongsTitle = document.querySelector('.likedSongs-title');
 var $likedSongsContainer = document.querySelector('.likedSongs-container');
 var $searchPage = document.querySelector('.search-page');
 var $searchContainer = document.querySelector('.search-container');
-var $searchSong = document.querySelector('.search-song');
 var $title = document.querySelector('.title');
 var $subTitle = document.querySelector('.subtext');
+var $loader = document.querySelector('.lds-facebook');
 
 var arr = [$hotTracks, $homePage, $discoverPage, $searchPage, $userPage, $playlistPage, $followingPage, $likedSongsPage, $searchPage];
 
@@ -115,7 +113,6 @@ function switchPage() {
 $search.addEventListener('keydown', function (e) {
   if (e.key === 'Enter') {
     data.view = 'search-page';
-    $searchSong.classList.add('hidden');
     $searchTitle.innerText = 'Search Results';
     viewSwap('search-page');
     getSearchResults();
@@ -131,6 +128,10 @@ $userSearch.addEventListener('keydown', function (e) {
 
   }
 });
+
+function hideLoader() {
+  $loader.style.display = 'none';
+}
 
 window.addEventListener('DOMContentLoaded', function () {
   $title.className = 'title title-fade shadow';
@@ -157,10 +158,8 @@ function getHotTracks() {
   hotTracks.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + hotTracksURL);
   hotTracks.setRequestHeader('token', 'abc123');
   hotTracks.responseType = 'json';
-  hotTracks.addEventListener('error', function () {
-    $hotTracksTitle.innerText = 'Error, Connection Lost. \n Please Try Again Later.';
-  });
   hotTracks.addEventListener('load', function () {
+    hideLoader();
     for (var i = 0; i < hotTracks.response.tracks.length; i++) {
       var hot = createTracks(hotTracks.response.tracks[i]);
       $hotContainer.appendChild(hot);
@@ -210,7 +209,7 @@ function createUser(userData) {
   div.className = 'user-row row track';
 
   var userImgCol = document.createElement('div');
-  userImgCol.className = 'col-5 d-flex justify-content-end';
+  userImgCol.className = 'userImg col-5 d-flex justify-content-end';
   div.appendChild(userImgCol);
 
   var userImg = document.createElement('img');
@@ -243,11 +242,9 @@ function getUser() {
   userData.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + getUserPlaylistURL);
   userData.setRequestHeader('token', 'abc123');
   userData.responseType = 'json';
-  userData.addEventListener('error', function () {
-    $discoverTitle.innerText = 'Error, Connection Lost. \n Please Try Again Later.';
-  });
   userData.addEventListener('load', function () {
     $discoverContainer.replaceChildren('');
+    hideLoader();
     if (userData.response.results.users.length === 0) {
       var h2 = document.createElement('h2');
       h2.className = 'none';
@@ -269,11 +266,9 @@ function getUserPlaylist() {
   userPlaylist.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + getUserPlaylistURL);
   userPlaylist.setRequestHeader('token', 'abc123');
   userPlaylist.responseType = 'json';
-  userPlaylist.addEventListener('error', function () {
-    $playlistTitle.innerText = 'Error, Connection Lost. \n Please Try Again Later.';
-  });
   userPlaylist.addEventListener('load', function () {
     $playlistContainer.replaceChildren('');
+    hideLoader();
     if (userPlaylist.response.length === 0) {
       var h2 = document.createElement('h2');
       h2.className = 'none';
@@ -370,11 +365,9 @@ function getFollowingList() {
   followingList.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + followingListURL);
   followingList.setRequestHeader('token', 'abc123');
   followingList.responseType = 'json';
-  followingList.addEventListener('error', function () {
-    $followingTitle.innerText = 'Error, Connection Lost. \n Please Try Again Later.';
-  });
   followingList.addEventListener('load', function () {
     $followingContainer.replaceChildren('');
+    hideLoader();
     if (followingList.response.length === 0) {
       var h2 = document.createElement('h2');
       h2.className = 'none';
@@ -407,6 +400,9 @@ function createLikedSongs(likedSongs) {
   var likedSongsImg = document.createElement('img');
   likedSongsImg.className = 'userplaylist-image';
   likedSongsImg.setAttribute('src', likedSongs.img);
+  likedSongsImg.addEventListener('error', function () {
+    likedSongsImg.setAttribute('src', '../images/error.png');
+  });
   likedSongsImgCol.appendChild(likedSongsImg);
 
   var likedSongsTextCol = document.createElement('div');
@@ -431,11 +427,9 @@ function getLikedSongs() {
   likedSongsList.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + likedSongsListURL);
   likedSongsList.setRequestHeader('token', 'abc123');
   likedSongsList.responseType = 'json';
-  likedSongsList.addEventListener('error', function () {
-    $likedSongsTitle.innerText = 'Error, Connection Lost. \n Please Try Again Later.';
-  });
   likedSongsList.addEventListener('load', function () {
     $likedSongsContainer.replaceChildren('');
+    hideLoader();
     if (likedSongsList.response.length === 0) {
       var h2 = document.createElement('h2');
       h2.className = 'none';
@@ -485,11 +479,9 @@ function getSearchResults() {
   searchResults.open('GET', 'https://lfz-cors.herokuapp.com/?url=' + getSearchResultsURL);
   searchResults.setRequestHeader('token', 'abc123');
   searchResults.responseType = 'json';
-  searchResults.addEventListener('error', function () {
-    $searchTitle.innerText = 'Error, Connection Lost. \n Please Try Again Later.';
-  });
   searchResults.addEventListener('load', function () {
     $searchContainer.replaceChildren('');
+    hideLoader();
     if (searchResults.response.results.tracks.length === 0) {
       var h2 = document.createElement('h2');
       h2.className = 'none';
