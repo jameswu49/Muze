@@ -116,6 +116,7 @@ $search.addEventListener('keydown', function (e) {
     $searchTitle.innerText = 'Search Results';
     viewSwap('search-page');
     getSearchResults();
+    event.preventDefault();
   }
 });
 
@@ -125,7 +126,7 @@ $userSearch.addEventListener('keydown', function (e) {
     data.view = 'discover-page';
     viewSwap('discover-page');
     getUser();
-
+    event.preventDefault();
   }
 });
 
@@ -244,7 +245,7 @@ function getUser() {
   userData.responseType = 'json';
   userData.addEventListener('load', function () {
     $discoverContainer.replaceChildren('');
-    hideLoader();
+    // hideLoader();
     if (userData.response.results.users.length === 0) {
       var h2 = document.createElement('h2');
       h2.className = 'none';
@@ -268,7 +269,7 @@ function getUserPlaylist() {
   userPlaylist.responseType = 'json';
   userPlaylist.addEventListener('load', function () {
     $playlistContainer.replaceChildren('');
-    hideLoader();
+    // hideLoader();
     if (userPlaylist.response.length === 0) {
       var h2 = document.createElement('h2');
       h2.className = 'none';
@@ -367,7 +368,7 @@ function getFollowingList() {
   followingList.responseType = 'json';
   followingList.addEventListener('load', function () {
     $followingContainer.replaceChildren('');
-    hideLoader();
+    // hideLoader();
     if (followingList.response.length === 0) {
       var h2 = document.createElement('h2');
       h2.className = 'none';
@@ -429,7 +430,7 @@ function getLikedSongs() {
   likedSongsList.responseType = 'json';
   likedSongsList.addEventListener('load', function () {
     $likedSongsContainer.replaceChildren('');
-    hideLoader();
+    // hideLoader();
     if (likedSongsList.response.length === 0) {
       var h2 = document.createElement('h2');
       h2.className = 'none';
@@ -481,7 +482,7 @@ function getSearchResults() {
   searchResults.responseType = 'json';
   searchResults.addEventListener('load', function () {
     $searchContainer.replaceChildren('');
-    hideLoader();
+    // hideLoader();
     if (searchResults.response.results.tracks.length === 0) {
       var h2 = document.createElement('h2');
       h2.className = 'none';
