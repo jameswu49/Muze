@@ -29,7 +29,9 @@ Openwhyd - https://openwhyd.github.io/openwhyd/API.html
 
 ## Preview
 
+### Get list of the Hottest Tracks
 ![Hot Tracks](images/hot.gif)
 
+### Search for Tracks
 ![Search Tracks](images/search.gif)
 
